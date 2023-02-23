@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ydLCxTN7ZWH2hYGWfgxsWKZrfquoQKuqVEgRTfWgh/fs6cKjhHmQ5IsmS1ag4LUK4M8gHe3hLj8oHDEs21kRrg==",
+  "dgSpecHash": "h8mE9A3dy4MBzPR0ZI/+da44/bAkTkwsPFsbTIWE4bbppjWyXzsSnrUU5ba0Tty7wt4lupCcTRuUojN2ZksWmg==",
   "success": true,
-  "projectFilePath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
+  "projectFilePath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

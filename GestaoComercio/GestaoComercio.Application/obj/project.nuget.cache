@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FRSWi6DHDzmj4iUofghnTt7I7IbSML3RsDMRV99PzOnq1EZlGMCgX66cpxCo+9c+hiuPQJmZTXN2DrptW8/7Zg==",
+  "dgSpecHash": "H/rDIWyMX/YBnzxdWkZTGTA5oHhkP1Rk9ujNt7e2HFzUe5YUBgFsk3zV0ZxiZQeKMj483OtG1G8C6t8X2T1AnA==",
   "success": true,
-  "projectFilePath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
+  "projectFilePath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

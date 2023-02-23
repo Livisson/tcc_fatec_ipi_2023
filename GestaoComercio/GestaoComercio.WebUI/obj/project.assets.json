@@ -8365,11 +8365,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.WebUI\\GestaoComercio.WebUI.csproj",
+      "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.WebUI\\GestaoComercio.WebUI.csproj",
       "projectName": "GestaoComercio.WebUI",
-      "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.WebUI\\GestaoComercio.WebUI.csproj",
+      "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.WebUI\\GestaoComercio.WebUI.csproj",
       "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-      "outputPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.WebUI\\obj\\",
+      "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.WebUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8386,8 +8386,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj": {
-              "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj"
+            "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj": {
+              "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj"
             }
           }
         }

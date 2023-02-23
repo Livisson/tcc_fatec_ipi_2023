@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Yn+9W/xGDQsn5gAsFHJd0QFRZXwpyI4UyFfWuAG0sEMfWebbyXAuMYJ64piUOTjzzQfxVzRTLBwfDpU9TfNj/g==",
+  "dgSpecHash": "kOGYEg/yiosW1/oYCczGTCn/dYV4b5xNMflzVi5d91J+Vdqesybv+bnb+5eqF96W5uX1+MS2C56FoLdfF3nLYA==",
   "success": true,
-  "projectFilePath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain.Tests\\GestaoComercio.Domain.Tests.csproj",
+  "projectFilePath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain.Tests\\GestaoComercio.Domain.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",

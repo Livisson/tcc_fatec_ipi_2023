@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CuUELPiQ8L9X5AhcNx3pbggl+YkZyHi79iMcqXyach0yTcCPf4WRgPYlUvhF93qu5oSICKYS26w4EwoOcwcOSw==",
+  "dgSpecHash": "LtPmW4cmZgUhLu6iyqxQEcxolUl0DFUebxTByhDWrpxd6s9jkKxw5gY6JlMWdxN82TpK/uxWMn4SQPEUSAAncA==",
   "success": true,
-  "projectFilePath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.WebUI\\GestaoComercio.WebUI.csproj",
+  "projectFilePath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.WebUI\\GestaoComercio.WebUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

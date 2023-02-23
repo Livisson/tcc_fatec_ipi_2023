@@ -5499,11 +5499,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
+      "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
       "projectName": "GestaoComercio.Infra.IoC",
-      "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
+      "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
       "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-      "outputPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.IoC\\obj\\",
+      "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5520,14 +5520,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
-              "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj"
+            "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
+              "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj"
             },
-            "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
-              "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
+            "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+              "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
             },
-            "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj": {
-              "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj"
+            "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj": {
+              "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj"
             }
           }
         }

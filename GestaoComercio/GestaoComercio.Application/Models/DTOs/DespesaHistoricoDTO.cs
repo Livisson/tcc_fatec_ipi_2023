@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestaoComercio.Domain.Entities
 {
-    public class DespesaDTO
+    public class DespesaHistoricoDTO
     {
         public int Id { get; set; }
         public string Tipo { get; set; }
@@ -15,6 +15,7 @@ namespace GestaoComercio.Domain.Entities
         public double Valor { get; set; }
         public string Funcao { get; set; }
         public int DiaVencimento { get; set; }
+        public DateTime DataHistorico { get; set; }
 
         public void ValidateDomain()
         {

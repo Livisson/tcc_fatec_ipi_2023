@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace GestaoComercio.Infra.Data.EntitiesConfiguration
 {
-    public class DespesaConfiguration : IEntityTypeConfiguration<Despesa>
+    public class DespesaHistoricoConfiguration : IEntityTypeConfiguration<DespesaHistorico>
     {
-        public void Configure(EntityTypeBuilder<Despesa> builder)
+        public void Configure(EntityTypeBuilder<DespesaHistorico> builder)
         {
             builder.HasKey(t => t.Id);
             builder.Property(p => p.Tipo);
@@ -19,6 +19,7 @@ namespace GestaoComercio.Infra.Data.EntitiesConfiguration
             builder.Property(p => p.Valor);
             builder.Property(p => p.Funcao);
             builder.Property(p => p.DiaVencimento);
+            builder.Property(p => p.DataHistorico);
 
             //builder.Navigation(x => x.ProdutosDoFornecedor).AutoInclude();
             //builder.HasData(

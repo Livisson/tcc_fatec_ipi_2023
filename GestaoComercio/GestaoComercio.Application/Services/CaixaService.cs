@@ -114,7 +114,7 @@ namespace GestaoComercio.Application.Services
 
             int year = Int32.Parse(mesAno.ToString().Substring(0, 4));
             int month = Int32.Parse(mesAno.ToString().Substring(4, 2));
-
+            /*
             for (int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
             {
                 if (month == DateTime.Now.Month)
@@ -151,7 +151,7 @@ namespace GestaoComercio.Application.Services
                     json.Add(JObject.Parse(appObj));
                 }
             }
-
+            */
             return json;
         }
 

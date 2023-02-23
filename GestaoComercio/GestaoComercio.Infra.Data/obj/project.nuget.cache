@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A9Kg7klqxAtFRWaPpJTyFf9rl/SZ/uJTFuH8faM/YEvk40uTqrSTLFAKsHLzoswFrQ6p8mRzhK/gioldFjxpGg==",
+  "dgSpecHash": "I8bHAT4fDJpub4xWeQpUScR3881M3zhssxOCTeud3gbwnLkb0nYtT+CBOJisLrSax9tMiglW3j14/V0pIrKxRA==",
   "success": true,
-  "projectFilePath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
+  "projectFilePath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrador\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Administrador\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

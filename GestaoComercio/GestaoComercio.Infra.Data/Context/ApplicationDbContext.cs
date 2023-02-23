@@ -18,6 +18,7 @@ namespace GestaoComercio.Infra.Data.Context
 
         public DbSet<Caixa> Caixa { get; set; }
         public DbSet<Despesa> Despesa { get; set; }
+        public DbSet<DespesaHistorico> DespesaHistorico { get; set; }
         public DbSet<EspecificacaoProduto> EspecificacaoProduto { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Pedido> Pedido { get; set; }

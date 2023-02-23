@@ -5819,11 +5819,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
+      "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
       "projectName": "GestaoComercio.Infra.Data",
-      "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
+      "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
       "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-      "outputPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Infra.Data\\obj\\",
+      "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5840,8 +5840,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
-              "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
+            "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+              "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
             }
           }
         }

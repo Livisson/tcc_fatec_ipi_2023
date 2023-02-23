@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {}
+    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {}
   },
   "projects": {
-    "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
+    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
+        "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
         "projectName": "GestaoComercio.Application",
-        "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
+        "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
         "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Application\\obj\\",
+        "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
-                "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
+              "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+                "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
               }
             }
           }
@@ -72,14 +72,14 @@
         }
       }
     },
-    "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
+        "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
         "projectName": "GestaoComercio.Domain",
-        "projectPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
+        "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
         "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "D:\\GestaoComercio\\GestaoComercio\\GestaoComercio.Domain\\obj\\",
+        "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GestaoComercio.Domain.Entities
 {
-    public sealed class Despesa
+    public sealed class DespesaHistorico
     {
         public int Id { get; private set; }
         public string Tipo { get; private set; }
@@ -15,18 +15,19 @@ namespace GestaoComercio.Domain.Entities
         public double Valor { get; private set; }
         public string Funcao { get; private set; }
         public int DiaVencimento { get; private set; }
+        public DateTime DataHistorico { get; private set; }
 
-        public Despesa(int id, string tipo, string descricao, double valor, string funcao, int diaVencimento)
+        public DespesaHistorico(int id, string tipo, string descricao, double valor, string funcao, int diaVencimento, DateTime dataHistorico)
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value");
             Id = id;
-            ValidateDomain(tipo, descricao, valor, funcao, diaVencimento);
+            ValidateDomain(tipo, descricao, valor, funcao, diaVencimento, dataHistorico);
         }
-        public void Update(string tipo, string descricao, double valor, string funcao, int diaVencimento)
+        public void Update(string tipo, string descricao, double valor, string funcao, int diaVencimento, DateTime dataHistorico)
         {
-            ValidateDomain(tipo, descricao, valor, funcao, diaVencimento);
+            ValidateDomain(tipo, descricao, valor, funcao, diaVencimento, dataHistorico);
         }
-        private void ValidateDomain(string tipo, string descricao, double valor, string funcao, int diaVencimento)
+        private void ValidateDomain(string tipo, string descricao, double valor, string funcao, int diaVencimento, DateTime dataHistorico)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(tipo),
                 "Nome inválido. O nome é obrigatorio");
@@ -57,6 +58,7 @@ namespace GestaoComercio.Domain.Entities
             Valor = valor;
             Funcao = funcao;
             DiaVencimento = diaVencimento;
+            DataHistorico = dataHistorico;
         }
     }
 }

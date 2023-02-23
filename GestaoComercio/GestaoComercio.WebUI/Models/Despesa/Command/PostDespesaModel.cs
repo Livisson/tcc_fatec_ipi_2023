@@ -13,6 +13,6 @@ namespace GestaoComercio.WebUI.Models.Despesa.Command
         public string Descricao { get; set; }
         public double Valor { get; set; }
         public string Funcao { get; set; }
-        public DateTime? DataVencimento { get; set; }
+        public int DiaVencimento { get; set; }
     }
 }
