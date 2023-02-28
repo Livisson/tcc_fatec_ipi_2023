@@ -12,5 +12,6 @@ namespace GestaoComercio.WebUI.TokenManager
             {"SampleUser","password" },
             {"DemoUser","password" }
         };
+
     }
 }

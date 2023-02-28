@@ -36,6 +36,7 @@ namespace GestaoComercio.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddInfrastructure(Configuration);
             services.AddControllersWithViews();
             services.AddControllers();
@@ -74,6 +75,8 @@ namespace GestaoComercio.WebUI
             });
 
             services.AddSingleton(typeof(IJwtTokenManager), typeof(JwtTokenManager));
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +92,13 @@ namespace GestaoComercio.WebUI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+            });
 
             app.UseMiddleware(typeof(ExceptionMiddleware));
 
@@ -114,6 +124,8 @@ namespace GestaoComercio.WebUI
                 c.RoutePrefix = string.Empty;
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
+
+            
 
         }
     }
