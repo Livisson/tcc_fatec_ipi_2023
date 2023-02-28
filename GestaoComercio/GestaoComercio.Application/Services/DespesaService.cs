@@ -35,9 +35,10 @@ namespace GestaoComercio.Application.Services
             return _mapper.Map<DespesaDTO>(await _despesaRepository.UpdateAsync(_mapper.Map<Despesa>(request)));
         }
 
-        public async Task<DespesaDTO> DeletarDespesa(PostDespesaCommand request)
+        public async Task<DespesaDTO> DeletarDespesa(int id)
         {
-            return _mapper.Map<DespesaDTO>(await _despesaRepository.RemoveAsync(_mapper.Map<Despesa>(request)));
+            var despesa = _despesaRepository.Get(x => x.Id == id);
+            return _mapper.Map<DespesaDTO>(await _despesaRepository.RemoveAsync(_mapper.Map<Despesa>(despesa)));
         }
 
         public async Task<IEnumerable<DespesaDTO>> ConsultaDespesas()

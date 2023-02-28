@@ -52,14 +52,14 @@ namespace GestaoComercio.WebUI.Controllers
 
         [HttpPut]
         public async Task<IActionResult> PutFornecedor(PostDespesaModel request) =>
-                    Ok(await _despesaService.AtualizarDespesa(_mapper.Map<PostDespesaCommand>(request)));
+            Ok(await _despesaService.AtualizarDespesa(_mapper.Map<PostDespesaCommand>(request)));
 
         [HttpGet]
         public async Task<IActionResult> GetDespesas() =>
             Ok(await _despesaService.ConsultaDespesas());
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteFornecedor(PostDespesaModel request) =>
-            Ok(await _despesaService.DeletarDespesa(_mapper.Map<PostDespesaCommand>(request)));
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFornecedor(int id) =>
+            Ok(await _despesaService.DeletarDespesa(id));
     }
 }

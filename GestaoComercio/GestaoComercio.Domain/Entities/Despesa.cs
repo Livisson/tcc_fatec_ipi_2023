@@ -29,7 +29,7 @@ namespace GestaoComercio.Domain.Entities
         private void ValidateDomain(string tipo, string descricao, double valor, string funcao, int diaVencimento)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(tipo),
-                "Nome inválido. O nome é obrigatorio");
+                "Tipo inválido. O Tipo é obrigatorio");
 
             DomainExceptionValidation.When(tipo.Length < 3,
                 "Nome invalido. Muito pequeno, minimo 3 caracteres");
