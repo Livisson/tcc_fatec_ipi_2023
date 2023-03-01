@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LogoCompre from "../../LogoCompre.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Table, Button, Col, Row, Container, Modal, Form } from 'react-bootstrap';
+import { Table, Button, Col, Row, Container, Modal, Form, Toast } from 'react-bootstrap';
 import './styleDespesa.css';
 import axios from "axios";
 
@@ -15,6 +15,13 @@ const Despesas = () => {
   const [itemSelecionado, setItemSelecionado] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
   const [modoEditar, setModoEditar] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const [descricao, setDescricao] = useState("");
   const [funcao, setFuncao] = useState("");
@@ -35,7 +42,11 @@ const Despesas = () => {
   }
 
   function handleDiaVencimentoChange(event) {
-    setDiaVencimento(event.target.value);
+    const value = event.target.value.trim();
+    console.log(value.toString())
+    if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 31 && !value.toString().includes(","))) {
+      setDiaVencimento(value === '' ? null : parseInt(value));
+    }
   }
 
   function getDespesas() {
@@ -64,9 +75,13 @@ const Despesas = () => {
     axios.post("https://localhost:44334/Despesa/", novaDespesa)
     .then(response => {
       getDespesas();
+      setSuccessMessage("Depesa Inserida com Sucesso!")
+      setShowSuccessToast(true)
     })
     .catch(error => {
       console.log(error);
+      setErrorMessage(error.message || "Erro ao salvar despesa.")
+      setShowErrorToast(true)
     });
 
     setDescricao("");
@@ -93,9 +108,13 @@ const Despesas = () => {
     axios.put("https://localhost:44334/Despesa/", despesaEditada)
     .then(response => {
       getDespesas();
+      setSuccessMessage("Despesa editada com sucesso!")
+      setShowSuccessToast(true)
     })
     .catch(error => {
       console.log(error);
+      setErrorMessage(error.message || "Erro ao editar despesa.")
+      setShowErrorToast(true)
     });
   
     setDescricao("");
@@ -105,6 +124,25 @@ const Despesas = () => {
     setTipoDespesa("");
     setItemSelecionado(null);
     setModalAberto(false);
+  }
+  
+  function handleCloseDeleteConfirmation(confirmed) {
+    if (confirmed) {
+
+      axios.delete(`https://localhost:44334/Despesa/${itemToDelete.id}`)
+        .then(response => {
+          getDespesas();
+          setSuccessMessage("Despesa excluída com sucesso!")
+          setShowSuccessToast(true)
+        })
+        .catch(error => {
+          console.log(error);
+          setErrorMessage(error.message || "Erro ao excluir despesa.")
+          setShowErrorToast(true)
+        });
+    }
+    setShowDeleteConfirmation(false);
+    setItemToDelete(null);
   }
   
   useEffect(() => {
@@ -126,7 +164,7 @@ const Despesas = () => {
     setFuncao("");
     setValor("");
     setDiaVencimento("");
-    setTipoDespesa("");
+    setTipoDespesa("Funcionário");
     setItemSelecionado(null);
     setModalAberto(true);
     setModoEditar(false);
@@ -144,7 +182,10 @@ const Despesas = () => {
     setModoEditar(true);
   };
 
-  const removerDespesa = (id) => {
+  const removerDespesa = (item) => {
+    setItemToDelete(item);
+    setShowDeleteConfirmation(true);
+    /*
     axios.delete(`https://localhost:44334/Despesa/${id}`)
       .then(response => {
         const novasDespesas = despesas.filter(despesa => despesa.id !== id);
@@ -152,7 +193,7 @@ const Despesas = () => {
       })
       .catch(error => {
         console.log(error);
-      });
+      });*/
   };
 
   return (
@@ -254,7 +295,7 @@ const Despesas = () => {
                   <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
                     <FaPencilAlt />
                   </Button>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item.id)}>
+                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
                     <FaTrash />
                   </Button>
                 </td>
@@ -288,7 +329,7 @@ const Despesas = () => {
                   <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
                     <FaPencilAlt />
                   </Button>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item.id)}>
+                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
                     <FaTrash />
                   </Button>
                 </td>
@@ -324,7 +365,7 @@ const Despesas = () => {
             </Form.Group>
             <Form.Group controlId="data" style={{marginBottom: "20px"}}>
               <Form.Label>Dia Pagamento</Form.Label>
-              <Form.Control type="number" min="1" max="31" step="1" placeholder="Digite o dia de vencimento" value={diaVencimento} onChange={handleDiaVencimentoChange}/>
+              <Form.Control type="number" pattern="[0-9]*" min="1" max="31" placeholder="Digite o dia de vencimento" value={diaVencimento} onChange={handleDiaVencimentoChange}/>
             </Form.Group>
             <Modal.Footer>
               <Button variant="success" type="submit">
@@ -335,7 +376,31 @@ const Despesas = () => {
           </Form>
         </Modal.Body>  
       </Modal>
-    </Container>  
+      {showDeleteConfirmation && (
+        <Modal show={showDeleteConfirmation} onHide={() => handleCloseDeleteConfirmation(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmação de exclusão</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Tem certeza que deseja excluir a despesa "{itemToDelete.descricao}"?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={() => handleCloseDeleteConfirmation(true)}>
+              Confirmar
+            </Button>
+            <Button variant="secondary" onClick={() => handleCloseDeleteConfirmation(false)}>
+              Cancelar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
+      <Toast show={showErrorToast} onClose={() => setShowErrorToast(false)} bg="danger" delay={3000} autohide>
+        <Toast.Body className="text-white">{errorMessage}</Toast.Body>
+      </Toast>
+      <Toast show={showSuccessToast} onClose={() => setShowSuccessToast(false)} bg="success" delay={3000} autohide>
+        <Toast.Body className="text-white">{successMessage}</Toast.Body>
+      </Toast>  
+    </Container>
   );
 };
 
