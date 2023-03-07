@@ -75,7 +75,7 @@ const Despesas = () => {
     axios.post("https://localhost:44334/Despesa/", novaDespesa)
     .then(response => {
       getDespesas();
-      setSuccessMessage("Depesa Inserida com Sucesso!")
+      setSuccessMessage("Despesa Inserida com Sucesso!")
       setShowSuccessToast(true)
     })
     .catch(error => {
@@ -223,7 +223,7 @@ const Despesas = () => {
           <Row>
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Link 
-                to="/" 
+                to="/configurações" 
                 style={{
                   color: 'grey',
                   textDecoration: 'none',
@@ -255,12 +255,12 @@ const Despesas = () => {
       <br/>
       <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaChartBar className="me-2" />Consolidado</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/consolidado"><FaChartBar className="me-2" />Consolidado</Link></Button>
           <Button variant="light" className="custom-button-menu-selected" style={{color: 'grey'}}><FaMapMarkedAlt className="me-2" />Mapa de Custos</Button>
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaClipboardList className="me-2" />Pedidos</Link></Button>
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaBox className="me-2" />Estoque</Link></Button>
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaMoneyBillWave className="me-2" />Precificação</Link></Button>
-          <Button variant="light" className="custom-button-menu-last"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaCashRegister className="me-2" />Caixa</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/fornecedores"><FaClipboardList className="me-2" />Pedidos</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/estoque"><FaBox className="me-2" />Estoque</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/precificação"><FaMoneyBillWave className="me-2" />Precificação</Link></Button>
+          <Button variant="light" className="custom-button-menu-last"><Link style={{color: 'grey'}} className="nav-link" to="/caixa"><FaCashRegister className="me-2" />Caixa</Link></Button>
         </div>
       </Row>
       <br/>

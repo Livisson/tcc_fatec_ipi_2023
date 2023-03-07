@@ -13,9 +13,9 @@ const Signin = () => {
   const { signin, signout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    signout();
-  }, [signout]);
+  // useEffect(() => {
+  //   signout();
+  // }, [signout]);
 
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
@@ -36,7 +36,7 @@ const Signin = () => {
           setError(res);
           return;
         }
-        navigate("/despesas");
+        navigate("/fornecedores");
       })
       .catch((error) => {
         console.log(error.toString())
@@ -60,10 +60,10 @@ const Signin = () => {
           <img src={LogoCompre} alt="Logo" />
         </C.ContentImg>
         <C.Content>
-        <C.Label>
-          LOGIN  
-          <FaUser size={16} />
-        </C.Label>
+          <C.Label>
+            LOGIN  
+            <FaUser size={16} />
+          </C.Label>
           <Input
             type="text"
             placeholder="Digite seu Nome"
