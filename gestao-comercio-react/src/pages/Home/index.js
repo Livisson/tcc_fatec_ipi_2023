@@ -13,9 +13,9 @@ const Signin = () => {
   const { signin, signout } = useAuth();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   signout();
-  // }, [signout]);
+  useEffect(() => {
+    signout();
+  }, [signout]);
 
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");

@@ -34,3 +34,15 @@ D:\TCC_GestaoComercio\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\ob
 D:\TCC_GestaoComercio\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.dll
 D:\TCC_GestaoComercio\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\ref\GestaoComercio.Domain.dll
 D:\TCC_GestaoComercio\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.pdb
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\bin\Debug\net5.0\GestaoComercio.Domain.deps.json
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\bin\Debug\net5.0\GestaoComercio.Domain.dll
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\bin\Debug\net5.0\GestaoComercio.Domain.pdb
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.csproj.AssemblyReference.cache
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.AssemblyInfoInputs.cache
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.AssemblyInfo.cs
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.csproj.CoreCompileInputs.cache
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.dll
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\refint\GestaoComercio.Domain.dll
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\GestaoComercio.Domain.pdb
+C:\Users\david\Documents\GitHub\tcc_fatec_ipi_2023\GestaoComercio\GestaoComercio.Domain\obj\Debug\net5.0\ref\GestaoComercio.Domain.dll

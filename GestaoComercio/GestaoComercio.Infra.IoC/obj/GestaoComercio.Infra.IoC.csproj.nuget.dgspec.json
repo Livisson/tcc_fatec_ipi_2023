@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj": {}
+    "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj": {}
   },
   "projects": {
-    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
+    "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
+        "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
         "projectName": "GestaoComercio.Application",
-        "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\obj\\",
+        "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
-                "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
+              "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+                "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
               }
             }
           }
@@ -59,7 +59,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -68,21 +69,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+    "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
         "projectName": "GestaoComercio.Domain",
-        "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\obj\\",
+        "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -113,7 +114,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -122,21 +124,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj": {
+    "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
+        "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
         "projectName": "GestaoComercio.Infra.Data",
-        "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\obj\\",
+        "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -150,8 +152,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
-                "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
+              "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+                "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
               }
             }
           }
@@ -193,7 +195,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -202,21 +205,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj": {
+    "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
+        "projectUniqueName": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
         "projectName": "GestaoComercio.Infra.IoC",
-        "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
-        "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\obj\\",
+        "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\GestaoComercio.Infra.IoC.csproj",
+        "packagesPath": "C:\\Users\\david\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.IoC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\david\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -230,14 +233,14 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
-                "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj"
+              "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj": {
+                "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Application\\GestaoComercio.Application.csproj"
               },
-              "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
-                "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
+              "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj": {
+                "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Domain\\GestaoComercio.Domain.csproj"
               },
-              "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj": {
-                "projectPath": "D:\\TCC_GestaoComercio\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj"
+              "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj": {
+                "projectPath": "C:\\Users\\david\\Documents\\GitHub\\tcc_fatec_ipi_2023\\GestaoComercio\\GestaoComercio.Infra.Data\\GestaoComercio.Infra.Data.csproj"
               }
             }
           }
@@ -263,7 +266,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -272,7 +276,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.416\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

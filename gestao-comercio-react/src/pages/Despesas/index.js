@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import { FaUser, FaChartBar, FaMapMarkedAlt, FaClipboardList, FaBox, FaMoneyBillWave, FaCashRegister, FaCog, FaSignOutAlt, FaTrash, FaPencilAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoCompre from "../../LogoCompre.png";
@@ -202,52 +204,25 @@ const Despesas = () => {
         <Col style={{textAlign: "left", verticalAlign: "middle", alignSelf: "center"}}>
           <img src={LogoCompre} alt="Logo" height="80" style={{borderRadius: 7}}/>
         </Col>
-        <Col style={{textAlign: "left", verticalAlign: "middle", alignSelf: "center"}} xs={6}><label style={{fontSize:22, fontWeight: "bold", color: "gray"}}>MAPA DE CUSTOS</label></Col>
+        <Col style={{textAlign: "left", verticalAlign: "middle", alignSelf: "center"}} xs={6}><label style={{fontSize:22, fontWeight: "bold", color: "gray"}}>MAPA DE CUSTO</label></Col>
         <Col style={{textAlign: "right", verticalAlign: "middle", alignSelf: "center"}}>
           <Row style={{ height: '50px'}}>
-            <Link 
-              to="/" 
-              style={{
-                color: 'grey',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                justifyContent: "flex-end"
-              }}
-            >
-              {JSON.parse(userToken).name}
-              <FaUser className="me-2" />
-            </Link>
-          </Row>
-          <Row>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Link 
-                to="/configurações" 
-                style={{
-                  color: 'grey',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
+            <div className="mb-2">
+              <DropdownButton
+                key="start"
+                id={`dropdown-button-drop-start`}
+                drop="start"
+                variant="outline-secondary"
+                title={
+                  <>
+                    <span style={{marginLeft: "10px", marginRight: "10px"}}>{JSON.parse(userToken).name}</span>
+                    <FaUser className="me-2" />
+                  </>
+                }
               >
-                <FaCog  className="me-2" />
-                CONFIG
-              </Link>
-              <Link 
-                to="/" 
-                style={{
-                  color: 'grey',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  marginLeft: "40px"
-                }}
-              >
-                Sair
-                <FaSignOutAlt  className="me-2" />
-              </Link>
+                <Dropdown.Item eventKey="1"><Link to="/config" style={{color: 'grey', textDecoration: 'none', display: 'flex', alignItems: 'center'}}><FaCog  className="me-2" />Configurações</Link></Dropdown.Item>
+                <Dropdown.Item eventKey="2"><Link to="/" style={{color: 'grey', textDecoration: 'none', display: 'flex', alignItems: 'center'}}><FaSignOutAlt  className="me-2" />Sair</Link></Dropdown.Item>
+              </DropdownButton>
             </div>
           </Row>
         </Col>
@@ -256,10 +231,20 @@ const Despesas = () => {
       <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/consolidado"><FaChartBar className="me-2" />Consolidado</Link></Button>
-          <Button variant="light" className="custom-button-menu-selected" style={{color: 'grey'}}><FaMapMarkedAlt className="me-2" />Mapa de Custos</Button>
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/fornecedores"><FaClipboardList className="me-2" />Pedidos</Link></Button>
+          <Button variant="light" className="custom-button-menu-selected"><Link style={{color: 'grey'}} className="nav-link" to="/despesas"><FaMapMarkedAlt className="me-2" />Mapa de Custos</Link></Button>
+          <Dropdown className="d-inline-block">
+            <Dropdown.Toggle style={{color: 'grey'}} className="custom-button-menu" variant="light" id="dropdown-basic">
+              <FaClipboardList className="me-2" />Pedidos
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/pedidos">Pedidos</Link></Dropdown.Item>
+              <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/fornecedores">Fornecedores</Link></Dropdown.Item>
+              <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/produtos">Produtos</Link></Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/estoque"><FaBox className="me-2" />Estoque</Link></Button>
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/precificação"><FaMoneyBillWave className="me-2" />Precificação</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/precificar"><FaMoneyBillWave className="me-2" />Precificação</Link></Button>
           <Button variant="light" className="custom-button-menu-last"><Link style={{color: 'grey'}} className="nav-link" to="/caixa"><FaCashRegister className="me-2" />Caixa</Link></Button>
         </div>
       </Row>
@@ -271,73 +256,69 @@ const Despesas = () => {
           <Button variant="warning" className="custom-button-add" style={{ height: "35px", width: "100px", marginBottom: "5px", color:"grey" }} onClick={() => adicionarDespesa()}>Adicionar</Button>
         </div>
       </Row>
-      <Row>
-        <Table striped hover>
-          <thead>
-            <tr>
-              <th className="text-center">N°</th>
-              <th>Funcionários</th>
-              <th>Função</th>
-              <th className="text-center">Valor</th>
-              <th className="text-center">Dia Pagamento</th>
-              <th></th>
+      <Table striped hover>
+        <thead>
+          <tr>
+            <th className="text-center">N°</th>
+            <th>Funcionários</th>
+            <th>Função</th>
+            <th className="text-center">Valor</th>
+            <th className="text-center">Dia Pagamento</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {despesas.map((item, index) => (
+            <tr key={item.id}>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>{index}</td>
+              <td style={{ verticalAlign: "middle"}}>{item.descricao}</td>
+              <td style={{ verticalAlign: "middle"}}>{item.funcao}</td>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>R$ {item.valor.toFixed(2)}</td>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>{item.diaVencimento}</td>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>
+                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
+                  <FaPencilAlt />
+                </Button>
+                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
+                  <FaTrash />
+                </Button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {despesas.map((item, index) => (
-              <tr key={item.id}>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>{index}</td>
-                <td style={{ verticalAlign: "middle"}}>{item.descricao}</td>
-                <td style={{ verticalAlign: "middle"}}>{item.funcao}</td>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>R$ {item.valor.toFixed(2)}</td>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>{item.diaVencimento}</td>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
-                    <FaPencilAlt />
-                  </Button>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
-                    <FaTrash />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Row>
+          ))}
+        </tbody>
+      </Table>
       <br/>
-      <Row>
-        <Table striped hover>
-          <thead>
-            <tr>
-              <th className="text-center">N°</th>
-              <th>Geral</th>
-              <th></th>
-              <th className="text-center">Valor</th>
-              <th className="text-center">Dia Pagamento</th>
-              <th></th>
+      <Table striped hover>
+        <thead>
+          <tr>
+            <th className="text-center">N°</th>
+            <th>Geral</th>
+            <th></th>
+            <th className="text-center">Valor</th>
+            <th className="text-center">Dia Pagamento</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {despesasGerais.map((item, index) => (
+            <tr key={item.id}>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>{index}</td>
+              <td style={{ verticalAlign: "middle"}}>{item.descricao}</td>
+              <td></td>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>R$ {item.valor.toFixed(2)}</td>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>{item.diaVencimento}</td>
+              <td className="text-center" style={{ verticalAlign: "middle"}}>
+                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
+                  <FaPencilAlt />
+                </Button>
+                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
+                  <FaTrash />
+                </Button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {despesasGerais.map((item, index) => (
-              <tr key={item.id}>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>{index}</td>
-                <td style={{ verticalAlign: "middle"}}>{item.descricao}</td>
-                <td></td>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>R$ {item.valor.toFixed(2)}</td>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>{item.diaVencimento}</td>
-                <td className="text-center" style={{ verticalAlign: "middle"}}>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
-                    <FaPencilAlt />
-                  </Button>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
-                    <FaTrash />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Row>
+          ))}
+        </tbody>
+      </Table>
       <Modal show={modalAberto} onHide={() => setModalAberto(false)}>
         <Modal.Header closeButton>
           <Modal.Title style={{fontWeight: "bold", color: "Grey"}}>{itemSelecionado ? "Editar Despesa" : "Nova Despesa"}</Modal.Title>
