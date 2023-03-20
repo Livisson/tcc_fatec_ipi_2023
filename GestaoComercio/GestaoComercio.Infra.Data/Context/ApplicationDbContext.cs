@@ -25,6 +25,7 @@ namespace GestaoComercio.Infra.Data.Context
         public DbSet<Produto> Produto { get; set; }
         public DbSet<ProdutosVenda> ProdutosVenda { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<NomeProdutos> NomeProdutos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

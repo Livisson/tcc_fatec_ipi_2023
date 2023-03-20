@@ -4,6 +4,7 @@ using GestaoComercio.Application.Services;
 using GestaoComercio.Domain.Entities;
 using GestaoComercio.Domain.Interfaces;
 using GestaoComercio.WebUI.Models;
+using GestaoComercio.WebUI.Models.NomeProdutos.Commands;
 using GestaoComercio.WebUI.Models.Pedido.Commands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -58,5 +59,6 @@ namespace GestaoComercio.WebUI.Controllers
         [HttpGet("getEstoque")]
         public IActionResult GetEstoque() =>
             Ok(_produtoService.ConsultaEstoque());
+
     }
 }

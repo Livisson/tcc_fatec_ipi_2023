@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GestaoComercio.Application.Models.NomeProdutos.Commands;
 using GestaoComercio.Application.Models.Pedido.Commands;
 using GestaoComercio.Application.Models.Precificacao.Commands;
 using GestaoComercio.Application.Models.Responses;
@@ -138,5 +139,6 @@ namespace GestaoComercio.Application.Services
         {
             return _mapper.Map<ProdutoDTO>(await _produtoRepository.RemoveAsync(_mapper.Map<Produto>(request)));
         }
+
     }
 }

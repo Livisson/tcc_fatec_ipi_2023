@@ -129,6 +129,21 @@ namespace GestaoComercio.Infra.Data.Migrations
                     b.ToTable("Fornecedor");
                 });
 
+            modelBuilder.Entity("GestaoComercio.Domain.Entities.NomeProdutos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NomeProduto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NomeProdutos");
+                });
+
             modelBuilder.Entity("GestaoComercio.Domain.Entities.Pedido", b =>
                 {
                     b.Property<int>("Id")
