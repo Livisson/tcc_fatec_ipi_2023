@@ -45,14 +45,14 @@ namespace GestaoComercio.Application.Services
 
         public List<TelaPrecificacaoResponse> ConsultaPrecificacao(string codigoFornecedor)
         {
-            if (codigoFornecedor == "teste")
-            {
-                throw new Exception("Se fudeu");
-            }
-            else
-            {
-                throw new MyExceptionApi("Exception API", HttpStatusCode.BadRequest);
-            }
+            //if (codigoFornecedor == "teste")
+            //{
+            //    throw new Exception("Se fudeu");
+            //}
+            //else
+            //{
+            //    throw new MyExceptionApi("Exception API", HttpStatusCode.BadRequest);
+            //}
             
 
             var produtos = _produtoRepository.GetAll(x => x.FornecedorCpnj == codigoFornecedor);
@@ -62,19 +62,23 @@ namespace GestaoComercio.Application.Services
             {
                 var produtoEspecificacao = _mapper.Map<IEnumerable<EspecificacaoProdutoDTO>>(_especificacoesProdutoService.GetEspecificacaoProdutos(item.CodigoBarras, item.FornecedorCpnj));
 
-                TelaPrecificacaoResponse registro = new TelaPrecificacaoResponse
+                if (produtoEspecificacao.Count() > 0)
                 {
-                    CodigoBarras = item.CodigoBarras,
-                    Estoque = item.QtdEstoqueTotal,
-                    NomeProduto = item.Nome,
-                    PerDesconto = item.PerDesconto,
-                    PerMargem = item.PerMargem,
-                    ValorCompra = produtoEspecificacao.OrderByDescending(x => x.ValorCompraProduto).FirstOrDefault().ValorCompraProduto,
-                    ValorSugerido = item.ValorSugerido,
-                    ValorVenda = item.ValorVenda
-                };
+                    TelaPrecificacaoResponse registro = new TelaPrecificacaoResponse
+                    {
+                        CodigoBarras = item.CodigoBarras,
+                        Estoque = item.QtdEstoqueTotal,
+                        NomeProduto = item.Nome,
+                        PerDesconto = item.PerDesconto,
+                        PerMargem = item.PerMargem,
+                        ValorCompra = produtoEspecificacao.OrderByDescending(x => x.ValorCompraProduto).FirstOrDefault().ValorCompraProduto,
+                        ValorSugerido = item.ValorSugerido,
+                        ValorVenda = item.ValorVenda
+                    };
 
-                list.Add(registro);
+                    list.Add(registro);
+                }
+
             }
             return list;
         }

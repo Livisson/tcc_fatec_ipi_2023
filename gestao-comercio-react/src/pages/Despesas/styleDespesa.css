@@ -16,6 +16,7 @@
 }
 
 .custom-button-menu-selected:hover {
+  margin-right: 5px;
   background-color: orange;
   border-color: orange;
   color: 'grey'

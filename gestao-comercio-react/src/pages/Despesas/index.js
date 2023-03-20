@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LogoCompre from "../../LogoCompre.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Table, Button, Col, Row, Container, Modal, Form, Toast } from 'react-bootstrap';
+import { Table, Button, Col, Row, Container, Modal, Form, Toast, Dropdown, DropdownButton } from 'react-bootstrap';
 import './styleDespesa.css';
 import axios from "axios";
 
@@ -205,49 +205,22 @@ const Despesas = () => {
         <Col style={{textAlign: "left", verticalAlign: "middle", alignSelf: "center"}} xs={6}><label style={{fontSize:22, fontWeight: "bold", color: "gray"}}>MAPA DE CUSTOS</label></Col>
         <Col style={{textAlign: "right", verticalAlign: "middle", alignSelf: "center"}}>
           <Row style={{ height: '50px'}}>
-            <Link 
-              to="/" 
-              style={{
-                color: 'grey',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                justifyContent: "flex-end"
-              }}
-            >
-              {JSON.parse(userToken).name}
-              <FaUser className="me-2" />
-            </Link>
-          </Row>
-          <Row>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Link 
-                to="/" 
-                style={{
-                  color: 'grey',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
+            <div className="mb-2">
+              <DropdownButton
+                key="start"
+                id={`dropdown-button-drop-start`}
+                drop="start"
+                variant="outline-secondary"
+                title={
+                  <>
+                    <span style={{marginLeft: "10px", marginRight: "10px"}}>{JSON.parse(userToken).name}</span>
+                    <FaUser className="me-2" />
+                  </>
+                }
               >
-                <FaCog  className="me-2" />
-                CONFIG
-              </Link>
-              <Link 
-                to="/" 
-                style={{
-                  color: 'grey',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  marginLeft: "40px"
-                }}
-              >
-                Sair
-                <FaSignOutAlt  className="me-2" />
-              </Link>
+                <Dropdown.Item eventKey="1"><Link to="/" style={{color: 'grey', textDecoration: 'none', display: 'flex', alignItems: 'center'}}><FaCog  className="me-2" />Configurações</Link></Dropdown.Item>
+                <Dropdown.Item eventKey="2"><Link to="/" style={{color: 'grey', textDecoration: 'none', display: 'flex', alignItems: 'center'}}><FaSignOutAlt  className="me-2" />Sair</Link></Dropdown.Item>
+              </DropdownButton>
             </div>
           </Row>
         </Col>
@@ -257,7 +230,7 @@ const Despesas = () => {
         <div className="d-flex justify-content-between">
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaChartBar className="me-2" />Consolidado</Link></Button>
           <Button variant="light" className="custom-button-menu-selected" style={{color: 'grey'}}><FaMapMarkedAlt className="me-2" />Mapa de Custos</Button>
-          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaClipboardList className="me-2" />Pedidos</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/produtos"><FaClipboardList className="me-2" />Pedidos</Link></Button>
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaBox className="me-2" />Estoque</Link></Button>
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaMoneyBillWave className="me-2" />Precificação</Link></Button>
           <Button variant="light" className="custom-button-menu-last"><Link style={{color: 'grey'}} className="nav-link" to="/"><FaCashRegister className="me-2" />Caixa</Link></Button>

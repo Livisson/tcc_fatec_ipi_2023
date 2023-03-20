@@ -39,7 +39,7 @@ namespace GestaoComercio.WebUI.Controllers
             _pedidoService = new PedidoService(_produtoService, mapper, _especificacoesProdutoService, pedidoRepository);
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult PostPrecificacao(PostPrecificacaoModel request)
         {
             _produtoService.UpdateValoresVenda(_mapper.Map<PostPrecificacaoCommand>(request));
