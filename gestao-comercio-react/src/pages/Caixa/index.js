@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import LogoCompre from "../../LogoCompre.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Table, Button, Col, Row, Container, Modal, Form, Toast } from 'react-bootstrap';
+import { Table, Button, Col, Row, Container, Modal, Form, Toast, InputGroup } from 'react-bootstrap';
 import './styleCaixa.css';
 import axios from "axios";
 
@@ -201,7 +201,65 @@ const Caixa = () => {
       </Row>
       <br/>
       <br/>
-      <Row className="justify-content-md-center">
+      <Row>
+        <Col>
+          <Table striped hover>
+            <thead>
+              <tr>
+                <th className="text-center">ITEM</th>
+                <th className="text-center">EAN</th>
+                <th className="text-center">DESCRIÇÃO</th>
+                <th className="text-center">QUANT.</th>
+                <th className="text-center">UNIT.</th>
+                <th className="text-center">DESC. %</th>
+                <th className="text-center">R$ FINAL</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {fornecedor.map((item, index) => (
+                <tr key={item.id}>
+                  <td style={{ verticalAlign: "middle", textAlign: "center"}}>{item.cnpj}</td>
+                  <td style={{ verticalAlign: "middle"}}>{item.nome}</td>
+                  <td className="text-center" style={{ verticalAlign: "middle"}}>
+                    <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarFornecedor(item)}>
+                      <FaPencilAlt />
+                    </Button>
+                    <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerFornecedor(item)}>
+                      <FaTrash />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+        <Col xs={3}>
+          <Form.Label>Nome</Form.Label>
+          <InputGroup className="mb-3">
+            <Form.Control placeholder="Username"/>
+          </InputGroup>
+          <Form.Label>Nome</Form.Label>
+          <InputGroup className="mb-3">
+            <Form.Control placeholder="Username"/>
+          </InputGroup>
+          <Row>
+            <Col>
+              <Form.Label>Nome</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control placeholder="Username"/>
+              </InputGroup>
+            </Col>
+            <Col>
+              <Form.Label>Nome</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control placeholder="Username"/>
+              </InputGroup>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      {/* <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
           <label style={{fontWeight: "bold", color: "Green"}}>Fornecedores</label>
           <Button variant="warning" className="custom-button-add" style={{ height: "35px", width: "100px", marginBottom: "5px", color:"grey" }} onClick={() => adicionarFornecedor()}>Adicionar</Button>
@@ -281,7 +339,7 @@ const Caixa = () => {
       </Toast>
       <Toast show={showSuccessToast} onClose={() => setShowSuccessToast(false)} bg="success" delay={3000} autohide>
         <Toast.Body className="text-white">{successMessage}</Toast.Body>
-      </Toast>  
+      </Toast>   */}
     </Container>
   );
 };
