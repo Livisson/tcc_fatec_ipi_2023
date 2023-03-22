@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GestaoComercio.Application.Models.Pedido.Commands;
+using GestaoComercio.Application.Responses;
 using GestaoComercio.Domain.Entities;
 using GestaoComercio.Domain.Interfaces;
 using System;
@@ -14,13 +15,15 @@ namespace GestaoComercio.Application.Services
     {
         private readonly ProdutoService _produtoService;
         private readonly EspecificacoesProdutoService _especificacoesProdutoService;
+        private readonly FornecedorService _fornecedorService;
         private readonly IGenericRepository<Pedido> _pedidoRepository;
         private readonly IMapper _mapper;
 
-        public PedidoService(ProdutoService produtoService, IMapper mapper, EspecificacoesProdutoService especificacoesProdutoService, IGenericRepository<Pedido> pedidoRepository)
+        public PedidoService(ProdutoService produtoService, IMapper mapper, EspecificacoesProdutoService especificacoesProdutoService, IGenericRepository<Pedido> pedidoRepository, IGenericRepository<Fornecedor> fornecedorRepository)
         {
             _produtoService = produtoService;
             _especificacoesProdutoService = especificacoesProdutoService;
+            _fornecedorService = new FornecedorService(fornecedorRepository, mapper);
             _pedidoRepository = pedidoRepository;
             _mapper = mapper;
         }
@@ -95,9 +98,44 @@ namespace GestaoComercio.Application.Services
             return _mapper.Map<PedidoDTO>(await _pedidoRepository.CreateAsync(_mapper.Map<Pedido>(pedido)));
         }
 
-        public async Task<IEnumerable<PedidoDTO>> ConsultaPedidos()
+        public List<TelaPedidoResponse> ConsultaPedidos(string codigoFornecedor)
         {
-            return _mapper.Map<IEnumerable<PedidoDTO>>(await _pedidoRepository.GetAsync());
+            var pedidos = new List<Pedido>();
+            if (codigoFornecedor == "" || codigoFornecedor == null || codigoFornecedor == "undefined")
+            {
+                pedidos = _pedidoRepository.GetAsync().Result.ToList();
+            }
+            else
+            {
+                pedidos = _pedidoRepository.GetAll(x => x.CodigoFornecedorProduto == codigoFornecedor).ToList();
+            }
+            
+            List<TelaPedidoResponse> list = new List<TelaPedidoResponse>();
+
+            foreach (var item in pedidos)
+            {
+                var produto = _mapper.Map<ProdutoDTO>(_produtoService.GetProdutoByCodigoBarras(item.CodigoBarrasProduto));
+                var fornecedor = _mapper.Map<FornecedorDTO>(_fornecedorService.ConsultaFornecedoresByCnpj(item.CodigoFornecedorProduto));
+
+                if (produto != null && fornecedor != null)
+                {
+                    TelaPedidoResponse registro = new TelaPedidoResponse
+                    {
+                        NomeProduto = produto.Nome,
+                        CodigoBarras = item.CodigoBarrasProduto,
+                        NomeFornecedor = fornecedor.Nome,
+                        ValorCompra = item.ValorCompra,
+                        Quantidade = item.Quantidade,
+                        ValorTotal = item.ValorCompra * item.Quantidade,
+                        DataPagamento = item.DataVencimento
+                    };
+
+                    list.Add(registro);
+                }
+
+            }
+            return list;
+            //return _mapper.Map<IEnumerable<PedidoDTO>>(await _pedidoRepository.GetAsync());
         }
 
         public PedidoDTO GetPedidoByIndex(string codigoBarras, string codigoFornecedor, double valorCompra)

@@ -33,14 +33,20 @@ namespace GestaoComercio.Application.Services
             return _mapper.Map<FornecedorDTO>(await _fornecedorRepository.UpdateAsync(_mapper.Map<Fornecedor>(request)));
         }
 
-        public async Task<FornecedorDTO> DeletarFornecedor(PostFornecedorCommand request)
+        public async Task<FornecedorDTO> DeletarFornecedor(string cnpj)
         {
-            return _mapper.Map<FornecedorDTO>(await _fornecedorRepository.RemoveAsync(_mapper.Map<Fornecedor>(request)));
+            var fornecedor = _fornecedorRepository.Get(x => x.Cnpj == cnpj.ToString());
+            return _mapper.Map<FornecedorDTO>(await _fornecedorRepository.RemoveAsync(fornecedor));
         }
 
         public async Task<IEnumerable<FornecedorDTO>> ConsultaFornecedores()
         {
             return _mapper.Map<IEnumerable<FornecedorDTO>>(await _fornecedorRepository.GetAsync());
+        }
+
+        public FornecedorDTO ConsultaFornecedoresByCnpj(string cnpj)
+        {
+            return _mapper.Map<FornecedorDTO>(_fornecedorRepository.Get(x => x.Cnpj == cnpj));
         }
     }
 }

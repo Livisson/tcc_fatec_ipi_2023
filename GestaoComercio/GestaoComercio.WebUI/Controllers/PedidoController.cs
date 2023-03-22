@@ -25,17 +25,18 @@ namespace GestaoComercio.WebUI.Controllers
         private readonly IMapper _mapper;
         private readonly ProdutoService _produtoService;
         private readonly EspecificacoesProdutoService _especificacoesProdutoService;
+        private readonly FornecedorService _fornecedorService;
         private readonly IGenericRepository<EspecificacaoProduto> _especificacaoProdutoRepository;
         private readonly IGenericRepository<Pedido> _pedidoRepository;
         private readonly IGenericRepository<Produto> _produtoRepository;
 
-        public PedidoController(ILogger<PedidoController> logger, IMapper mapper, IGenericRepository<Pedido> pedidoRepository, IGenericRepository<Produto> produtoRepository, IGenericRepository<EspecificacaoProduto> especificacaoProdutoRepository)
+        public PedidoController(ILogger<PedidoController> logger, IMapper mapper, IGenericRepository<Pedido> pedidoRepository, IGenericRepository<Produto> produtoRepository, IGenericRepository<EspecificacaoProduto> especificacaoProdutoRepository, IGenericRepository<Fornecedor> fornecedorRepository)
         {
             _logger = logger;
             _mapper = mapper;
             _especificacoesProdutoService = new EspecificacoesProdutoService(especificacaoProdutoRepository, mapper);
             _produtoService = new ProdutoService(produtoRepository, _especificacoesProdutoService, mapper);
-            _pedidoService = new PedidoService(_produtoService, mapper, _especificacoesProdutoService, pedidoRepository);
+            _pedidoService = new PedidoService(_produtoService, mapper, _especificacoesProdutoService, pedidoRepository, fornecedorRepository);
         }
 
         [HttpPost]
@@ -48,17 +49,25 @@ namespace GestaoComercio.WebUI.Controllers
         public async Task<IActionResult> PostPedido(PostPedidoModel request) =>
             Ok(await _pedidoService.InserirPedido(_mapper.Map<PostPedidoCommand>(request)));
 
-        [HttpGet]
-        public async Task<IActionResult> GetPedidos() =>
-            Ok(await _pedidoService.ConsultaPedidos());
+        //[HttpGet("{fornecedor}")]
+        //public IActionResult GetPedidos(string fornecedor) =>
+        //    Ok(_pedidoService.ConsultaPedidos(fornecedor));
 
-        [HttpDelete]
+        [HttpGet]
+        public IActionResult GetPedidos(string codigoFornecedor) =>
+            Ok(_pedidoService.ConsultaPedidos(codigoFornecedor));
+
+        [HttpPost("deletePedido")]
         public async Task<IActionResult> DeletePedido(PostPedidoModel request) =>
             Ok(await _pedidoService.DeletePedido(_mapper.Map<PostPedidoCommand>(request)));
 
         [HttpGet("getEstoque")]
         public IActionResult GetEstoque() =>
             Ok(_produtoService.ConsultaEstoque());
+
+        [HttpGet("getProdutos")]
+        public async Task<IActionResult> GetProdutos() =>
+            Ok(await _produtoService.GetProdutos());
 
     }
 }

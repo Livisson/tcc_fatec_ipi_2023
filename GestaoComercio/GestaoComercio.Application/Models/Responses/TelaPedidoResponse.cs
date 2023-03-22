@@ -10,6 +10,7 @@ namespace GestaoComercio.Application.Responses
     {
         public string NomeProduto { get; set; }
         public string CodigoBarras { get; set; }
+        public string NomeFornecedor { get; set; }
         public double ValorCompra { get; set; }
         public int Quantidade { get; set; }
         public double ValorTotal { get; set; }

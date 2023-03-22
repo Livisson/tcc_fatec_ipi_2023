@@ -4,10 +4,12 @@ using GestaoComercio.Application.Models.NomeProdutos.Commands;
 using GestaoComercio.Application.Models.Pedido.Commands;
 using GestaoComercio.Domain.Entities;
 using GestaoComercio.Domain.Interfaces;
+using GestaoComercio.Domain.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,9 +43,9 @@ namespace GestaoComercio.Application.Services
 
                 string nomeParaInserir = new string(nomeParaInserirChar);
 
-                if (nomeParaInserir == nomeDb)
+                if (nomeParaInserir.Trim() == nomeDb.Trim())
                 {
-                    throw new Exception("Não é possivel cadastrar Nome de produtos iguais!");
+                    throw new MyExceptionApi("Não é possivel cadastrar Nome de produtos iguais!", HttpStatusCode.BadRequest);
                 }
 
             }
@@ -69,9 +71,9 @@ namespace GestaoComercio.Application.Services
 
                     string nomeParaInserir = new string(nomeParaInserirChar);
 
-                    if (nomeParaInserir == nomeDb)
+                    if (nomeParaInserir.Trim() == nomeDb.Trim())
                     {
-                        throw new Exception("Não é possivel cadastrar Nome de produtos iguais!");
+                        throw new MyExceptionApi("Não é possivel cadastrar Nome de produtos iguais!", HttpStatusCode.BadRequest);
                     }
                 }
             }

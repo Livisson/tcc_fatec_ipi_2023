@@ -44,6 +44,11 @@ namespace GestaoComercio.Application.Services
             return _mapper.Map<ProdutoDTO>(_produtoRepository.Get(x => x.CodigoBarras == codigoBarras && x.Nome == nome));
         }
 
+        public async Task<IEnumerable<ProdutoDTO>> GetProdutos()
+        {
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(await _produtoRepository.GetAsync());
+        }
+
         public List<TelaPrecificacaoResponse> ConsultaPrecificacao(string codigoFornecedor)
         {
             //if (codigoFornecedor == "teste")

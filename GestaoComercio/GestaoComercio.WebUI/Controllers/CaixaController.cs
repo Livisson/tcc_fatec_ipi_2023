@@ -36,7 +36,6 @@ namespace GestaoComercio.WebUI.Controllers
             _mapper = mapper;
             _especificacoesProdutoService = new EspecificacoesProdutoService(especificacaoProdutoRepository, mapper);
             _produtoService = new ProdutoService(produtoRepository, _especificacoesProdutoService, mapper);
-            _pedidoService = new PedidoService(_produtoService, mapper, _especificacoesProdutoService, pedidoRepository);
             _caixaService = new CaixaService(_produtoService, produtoRepository, produtosVendaRepository, caixaRepository, _especificacoesProdutoService, despesaRepository, mapper);
         }
 

@@ -42,7 +42,6 @@ namespace GestaoComercio.WebUI.Controllers
             _mapper = mapper;
             _especificacoesProdutoService = new EspecificacoesProdutoService(especificacaoProdutoRepository, mapper);
             _produtoService = new ProdutoService(produtoRepository, _especificacoesProdutoService, mapper);
-            _pedidoService = new PedidoService(_produtoService, mapper, _especificacoesProdutoService, pedidoRepository);
             _despesaService = new DespesaService(despesaRepository, mapper);
         }
 
@@ -51,7 +50,7 @@ namespace GestaoComercio.WebUI.Controllers
             Ok(await _despesaService.InserirDespesa(_mapper.Map<PostDespesaCommand>(request)));
 
         [HttpPut]
-        public async Task<IActionResult> PutFornecedor(PostDespesaModel request) =>
+        public async Task<IActionResult> PutDespesa(PostDespesaModel request) =>
             Ok(await _despesaService.AtualizarDespesa(_mapper.Map<PostDespesaCommand>(request)));
 
         [HttpGet]
@@ -59,7 +58,7 @@ namespace GestaoComercio.WebUI.Controllers
             Ok(await _despesaService.ConsultaDespesas());
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFornecedor(int id) =>
+        public async Task<IActionResult> DeleteDespesa(int id) =>
             Ok(await _despesaService.DeletarDespesa(id));
     }
 }

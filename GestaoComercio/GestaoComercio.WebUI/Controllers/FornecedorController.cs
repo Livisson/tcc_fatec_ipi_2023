@@ -40,7 +40,6 @@ namespace GestaoComercio.WebUI.Controllers
             _mapper = mapper;
             _especificacoesProdutoService = new EspecificacoesProdutoService(especificacaoProdutoRepository, mapper);
             _produtoService = new ProdutoService(produtoRepository, _especificacoesProdutoService, mapper);
-            _pedidoService = new PedidoService(_produtoService, mapper, _especificacoesProdutoService, pedidoRepository);
             _fornecedorService = new FornecedorService(fornecedorRepository, mapper);
         }
 
@@ -57,8 +56,8 @@ namespace GestaoComercio.WebUI.Controllers
             Ok(await _fornecedorService.ConsultaFornecedores());
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteFornecedor(PostFornecedorModel request) =>
-            Ok(await _fornecedorService.DeletarFornecedor(_mapper.Map<PostFornecedorCommand>(request)));
+        public async Task<IActionResult> DeleteFornecedor(string cnpj) =>
+            Ok(await _fornecedorService.DeletarFornecedor(cnpj));
 
     }
 }
