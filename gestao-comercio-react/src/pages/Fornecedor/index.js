@@ -24,12 +24,74 @@ const Fornecedor = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [formValido, setFormValido] = useState(false);
 
   const [cnpj, setCNPJ] = useState("");
   const [nome, setNome] = useState("");
 
+  function validarCNPJ(cnpj) {
+    cnpj = cnpj.replace(/[^\d]+/g,'');
+ 
+    if(cnpj === '') return false;
+     
+    if (cnpj.length !== 14) return false;
+ 
+    // Elimina CNPJs invalidos conhecidos
+    if (cnpj === "00000000000000" || 
+        cnpj === "11111111111111" || 
+        cnpj === "22222222222222" || 
+        cnpj === "33333333333333" || 
+        cnpj === "44444444444444" || 
+        cnpj === "55555555555555" || 
+        cnpj === "66666666666666" || 
+        cnpj === "77777777777777" || 
+        cnpj === "88888888888888" || 
+        cnpj === "99999999999999")
+        return false;
+         
+   // Calcula o primeiro dígito verificador
+  let soma = 0;
+  for (let i = 0; i < 12; i++) {
+    soma += parseInt(cnpj.charAt(i)) * (i < 4 ? 5 - i : 13 - i);
+  }
+  let digito1 = (11 - soma % 11) % 10;
+  
+  // Calcula o segundo dígito verificador
+  soma = 0;
+  for (let i = 0; i < 13; i++) {
+    soma += parseInt(cnpj.charAt(i)) * (i < 5 ? 6 - i : 14 - i);
+  }
+  let digito2 = (11 - soma % 11) % 10;
+  
+  // Verifica se os dígitos verificadores estão corretos
+  if (parseInt(cnpj.charAt(12)) !== digito1 || parseInt(cnpj.charAt(13)) !== digito2) {
+    return false;
+  }
+  
+  // CNPJ válido
+  return true;
+}
+
   function handleCNPJChange(event) {
     setCNPJ(event.target.value);
+    // const novoCNPJ = event.target.value;
+    // console.log(novoCNPJ);
+    // if (validarCNPJ(novoCNPJ)) {
+    //   setCNPJ(novoCNPJ);
+    //   console.log(cnpj);
+    //   alert("CNPJ válido!");
+    // } else {
+    //   alert("CNPJ inválido!");
+    //   console.log(cnpj);
+    // }
+  }
+
+  function validarFormulario() {
+    if (!validarCNPJ(cnpj)) {
+      alert("CNPJ inválido!");
+      return false;
+    }
+    return true;
   }
 
   function handleNomeChange(event) {
@@ -55,6 +117,9 @@ const Fornecedor = () => {
   const handleAdicionar = (event) => {
     event.preventDefault();
 
+    if (!validarFormulario()) {
+      return;
+    }
 
     const novoFornecedor = {
       cnpj: cnpj,
@@ -76,6 +141,7 @@ const Fornecedor = () => {
     setCNPJ("");
     setNome("");
     setModalAberto(false);
+    setFormValido(false);
   }
 
   const handleEditar = (event) => {
@@ -197,7 +263,7 @@ const Fornecedor = () => {
 
             <Dropdown.Menu>
               <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/pedidos">Pedidos</Link></Dropdown.Item>
-              <Dropdown.Item style={{color: 'grey'}}>Fornecedores</Dropdown.Item>
+              <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/fornecedores">Fornecedores</Link></Dropdown.Item>
               <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/produtos">Produtos</Link></Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -259,17 +325,16 @@ const Fornecedor = () => {
                 mask="99.999.999/9999-99"
                 maskChar={null}
                 onBlur={() => setCNPJ(cnpjSemFormatacao)}
+                required
               />
             </Form.Group>
             <Form.Group controlId="nome" style={{marginBottom: "20px"}}>
               <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="Digite o nome do fornecedor" value={nome} onChange={handleNomeChange} />
+              <Form.Control type="text" placeholder="Digite o nome do fornecedor" value={nome} onChange={handleNomeChange} required />
             </Form.Group>
             <Modal.Footer>
-              <Button variant="success" type="submit">
-                Salvar
-              </Button>
-              <Button variant="secondary" onClick={() => setModalAberto(false)}>Fechar</Button>
+              <Button variant="success" type="submit" onClick={() => setFormValido(true)}> Salvar </Button>
+              <Button variant="secondary" onClick={() => setModalAberto(false)}> Fechar </Button>
             </Modal.Footer>
           </Form>
         </Modal.Body>  
