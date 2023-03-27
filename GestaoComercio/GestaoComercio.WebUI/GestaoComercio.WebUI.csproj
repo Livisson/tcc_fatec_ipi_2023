@@ -24,6 +24,7 @@
     <Folder Include="Models\NomeProdutos\Queries\" />
     <Folder Include="Models\Pedido\Queries\" />
     <Folder Include="Models\Precificacao\Queries\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using GestaoComercio.Application.Models.Responses;
 
 namespace GestaoComercio.Application.Services
 {
@@ -18,13 +20,14 @@ namespace GestaoComercio.Application.Services
 
         private readonly IGenericRepository<Produto> _produtoRepository;
         private readonly IGenericRepository<Despesa> _despesaRepository;
+        private readonly IGenericRepository<DespesaHistorico> _despesaHistoricoRepository;
         private readonly IGenericRepository<ProdutosVenda> _produtosVendaRepository;
         private readonly EspecificacoesProdutoService _especificacoesProdutoService;
         private readonly IGenericRepository<Caixa> _caixaRepository;
         private readonly ProdutoService _produtoService;
         private readonly IMapper _mapper;
 
-        public CaixaService(ProdutoService produtoService, IGenericRepository<Produto> produtoRepository, IGenericRepository<ProdutosVenda> produtosVendaRepository, IGenericRepository<Caixa> caixaRepository, EspecificacoesProdutoService especificacoesProdutoService, IGenericRepository<Despesa> despesaRepository, IMapper mapper)
+        public CaixaService(ProdutoService produtoService, IGenericRepository<Produto> produtoRepository, IGenericRepository<ProdutosVenda> produtosVendaRepository, IGenericRepository<Caixa> caixaRepository, EspecificacoesProdutoService especificacoesProdutoService, IGenericRepository<Despesa> despesaRepository, IMapper mapper, IGenericRepository<DespesaHistorico> despesaHistoricoRepository)
         {
             _produtoService = produtoService;
             _produtoRepository = produtoRepository;
@@ -33,6 +36,7 @@ namespace GestaoComercio.Application.Services
             _caixaRepository = caixaRepository;
             _despesaRepository = despesaRepository;
             _mapper = mapper;
+            _despesaHistoricoRepository = despesaHistoricoRepository;
         }
         public async Task<IEnumerable<ProdutosVendaDTO>> InserirCompra(List<PostCaixaCommand> request)
         {
@@ -108,50 +112,78 @@ namespace GestaoComercio.Application.Services
             return _mapper.Map<IEnumerable<ProdutosVendaDTO>>(await _produtosVendaRepository.GetAsync());
         }
 
-        public JArray ConsultarConsolidadoMes(int mesAno)
+        public List<TelaConsolidadoResponse> ConsultarConsolidadoMes(int mesAno)
         {
-            JArray json = new JArray();
+            //JArray json = new JArray();
+            var json = new List<TelaConsolidadoResponse>();
 
             int year = Int32.Parse(mesAno.ToString().Substring(0, 4));
             int month = Int32.Parse(mesAno.ToString().Substring(4, 2));
-            /*
+            
             for (int i = 1; i <= DateTime.DaysInMonth(year, month); i++)
             {
-                if (month == DateTime.Now.Month)
+                if (month == DateTime.Now.Month)//Se o mes for mes atual da pesquisa
                 {
-                    if (i == DateTime.Now.Day)
+                    if (i > DateTime.Now.Day)//Se o dia for maior que hoje
                     {
                         var vendas = 10; //media diaria de vendas
-                        var despesas = _despesaRepository.GetAll(x => x.DataVencimento >= new DateTime(year, month, i, 0, 0, 0) && x.DataVencimento <= new DateTime(year, month, i, 23, 59, 59)).ToList().Count == 0 ? 0 : _despesaRepository.GetAll(x => x.DataVencimento >= new DateTime(year, month, i, 0, 0, 0) && x.DataVencimento <= new DateTime(year, month, i, 23, 59, 59)).ToList().Sum(x => x.Valor);
+                        var despesas = _despesaHistoricoRepository.GetAll(x => x.DiaVencimento == i).ToList().Count == 0 ? 0 : _despesaHistoricoRepository.GetAll(x => x.DiaVencimento == i).ToList().Sum(x => x.Valor);
                         var resumo = vendas - despesas;
 
                         string appObj = "{'Data':'"+ new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy") + "', 'Receitas':'" + vendas + "', 'Despesa':'" + despesas + "', 'Resumo':'" + resumo + "'}";
 
-                        json.Add(JObject.Parse(appObj));
+                        TelaConsolidadoResponse registro = new TelaConsolidadoResponse
+                        {
+                            Data = new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy"),
+                            Receitas = vendas,
+                            Despesas = despesas,
+                            Resumo = resumo
+                        };
+                        //json.Add(JObject.Parse(appObj));
+                        //var teste = JsonSerializer.Serialize(appObj);
+                        json.Add(registro);
                     }
                     else
                     {
                         var vendas = _caixaRepository.GetAll(x => x.DataVenda >= new DateTime(year, month, i, 0, 0, 0) && x.DataVenda <= new DateTime(year, month, i, 23, 59, 59)).ToList().Count == 0 ? 0 : _caixaRepository.GetAll(x => x.DataVenda >= new DateTime(year, month, i, 0, 0, 0) && x.DataVenda <= new DateTime(year, month, i, 23, 59, 59)).ToList().Sum(x => x.ValorVenda);
-                        var despesas = _despesaRepository.GetAll(x => x.DataVencimento >= new DateTime(year, month, i, 0, 0, 0) && x.DataVencimento <= new DateTime(year, month, i, 23, 59, 59)).ToList().Count == 0 ? 0 : _despesaRepository.GetAll(x => x.DataVencimento >= new DateTime(year, month, i, 0, 0, 0) && x.DataVencimento <= new DateTime(year, month, i, 23, 59, 59)).ToList().Sum(x => x.Valor);
+                        var despesas = _despesaHistoricoRepository.GetAll(x => x.DiaVencimento == i).ToList().Count == 0 ? 0 : _despesaHistoricoRepository.GetAll(x => x.DiaVencimento == i).ToList().Sum(x => x.Valor);
                         var resumo = vendas - despesas;
 
                         string appObj = "{'Data':'" + new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy") + "', 'Receitas':'" + vendas + "', 'Despesa':'" + despesas + "', 'Resumo':'" + resumo + "'}";
 
-                        json.Add(JObject.Parse(appObj));
+                        TelaConsolidadoResponse registro = new TelaConsolidadoResponse
+                        {
+                            Data = new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy"),
+                            Receitas = vendas,
+                            Despesas = despesas,
+                            Resumo = resumo
+                        };
+                        //json.Add(JObject.Parse(appObj));
+                        //var teste = JsonSerializer.Serialize(appObj);
+                        json.Add(registro);
                     }
                 }
                 else
                 {
                     var vendas = _caixaRepository.GetAll(x => x.DataVenda >= new DateTime(year, month, i, 0, 0, 0) && x.DataVenda <= new DateTime(year, month, i, 23, 59, 59)).ToList().Count == 0 ? 0 : _caixaRepository.GetAll(x => x.DataVenda >= new DateTime(year, month, i, 0, 0, 0) && x.DataVenda <= new DateTime(year, month, i, 23, 59, 59)).ToList().Sum(x => x.ValorVenda);
-                    var despesas = _despesaRepository.GetAll(x => x.DataVencimento >= new DateTime(year, month, i, 0, 0, 0) && x.DataVencimento <= new DateTime(year, month, i, 23, 59, 59)).ToList().Count == 0 ? 0 : _despesaRepository.GetAll(x => x.DataVencimento >= new DateTime(year, month, i, 0, 0, 0) && x.DataVencimento <= new DateTime(year, month, i, 23, 59, 59)).ToList().Sum(x => x.Valor);
+                    var despesas = _despesaHistoricoRepository.GetAll(x => x.DiaVencimento == i).ToList().Count == 0 ? 0 : _despesaHistoricoRepository.GetAll(x => x.DiaVencimento == i).ToList().Sum(x => x.Valor);
                     var resumo = vendas - despesas;
 
                     string appObj = "{'Data':'" + new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy") + "', 'Receitas':'" + vendas + "', 'Despesa':'" + despesas + "', 'Resumo':'" + resumo + "'}";
 
-                    json.Add(JObject.Parse(appObj));
+                    TelaConsolidadoResponse registro = new TelaConsolidadoResponse
+                    {
+                        Data = new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy"),
+                        Receitas = vendas,
+                        Despesas = despesas,
+                        Resumo = resumo
+                    };
+                    //json.Add(JObject.Parse(appObj));
+                    //var teste = JsonSerializer.Serialize(appObj);
+                    json.Add(registro);
                 }
             }
-            */
+            
             return json;
         }
 

@@ -182,7 +182,7 @@ const Fornecedor = () => {
         })
         .catch(error => {
           console.log(error);
-          setErrorMessage(error.message || "Erro ao excluir Fornecedor.")
+          setErrorMessage(error.response.data.error || "Erro ao excluir Fornecedor.")
           setShowErrorToast(true)
         });
     }

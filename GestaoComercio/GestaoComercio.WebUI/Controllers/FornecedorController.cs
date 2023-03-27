@@ -40,7 +40,7 @@ namespace GestaoComercio.WebUI.Controllers
             _mapper = mapper;
             _especificacoesProdutoService = new EspecificacoesProdutoService(especificacaoProdutoRepository, mapper);
             _produtoService = new ProdutoService(produtoRepository, _especificacoesProdutoService, mapper);
-            _fornecedorService = new FornecedorService(fornecedorRepository, mapper);
+            _fornecedorService = new FornecedorService(fornecedorRepository, mapper, pedidoRepository);
         }
 
         [HttpPost]

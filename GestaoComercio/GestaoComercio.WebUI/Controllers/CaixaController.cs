@@ -29,14 +29,15 @@ namespace GestaoComercio.WebUI.Controllers
         private readonly IGenericRepository<Fornecedor> _fornecedorRepository;
         private readonly IGenericRepository<Caixa> _caixaRepository;
         private readonly IGenericRepository<Despesa> _despesaRepository;
+        private readonly IGenericRepository<DespesaHistorico> _despesaHistoricoRepository;
 
-        public CaixaController(ILogger<CaixaController> logger, IMapper mapper, IGenericRepository<Pedido> pedidoRepository, IGenericRepository<Produto> produtoRepository, IGenericRepository<EspecificacaoProduto> especificacaoProdutoRepository, IGenericRepository<ProdutosVenda> produtosVendaRepository, IGenericRepository<Caixa> caixaRepository, IGenericRepository<Despesa> despesaRepository)
+        public CaixaController(ILogger<CaixaController> logger, IMapper mapper, IGenericRepository<Pedido> pedidoRepository, IGenericRepository<Produto> produtoRepository, IGenericRepository<EspecificacaoProduto> especificacaoProdutoRepository, IGenericRepository<ProdutosVenda> produtosVendaRepository, IGenericRepository<Caixa> caixaRepository, IGenericRepository<Despesa> despesaRepository, IGenericRepository<DespesaHistorico> despesaHistoricoRepository)
         {
             _logger = logger;
             _mapper = mapper;
             _especificacoesProdutoService = new EspecificacoesProdutoService(especificacaoProdutoRepository, mapper);
             _produtoService = new ProdutoService(produtoRepository, _especificacoesProdutoService, mapper);
-            _caixaService = new CaixaService(_produtoService, produtoRepository, produtosVendaRepository, caixaRepository, _especificacoesProdutoService, despesaRepository, mapper);
+            _caixaService = new CaixaService(_produtoService, produtoRepository, produtosVendaRepository, caixaRepository, _especificacoesProdutoService, despesaRepository, mapper, despesaHistoricoRepository);
         }
 
         [HttpPost]
@@ -50,7 +51,7 @@ namespace GestaoComercio.WebUI.Controllers
         [HttpGet("getConsolidado")]
         public IActionResult GetConsolidado(int request) 
         {
-                request = 202302;
+                request = 202303;
                 var teste = _caixaService.ConsultarConsolidadoMes(request);
                 return Ok(teste);
         }

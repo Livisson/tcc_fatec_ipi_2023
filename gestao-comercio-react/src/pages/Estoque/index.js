@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { FaUser, FaChartBar, FaMapMarkedAlt, FaClipboardList, FaBox, FaMoneyBillWave, FaCashRegister, FaCog, FaSignOutAlt, FaTrash, FaPencilAlt } from "react-icons/fa";
+import { FaUser, FaChartBar, FaMapMarkedAlt, FaClipboardList, FaBox, FaMoneyBillWave, FaCashRegister, FaCog, FaSignOutAlt, FaPencilAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoCompre from "../../LogoCompre.png";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,142 +12,158 @@ import axios from "axios";
 
 const Estoque = () => {
 
-  const [fornecedor, setFornecedor] = useState([]);
+  const [estoque, setEstoque] = useState([]);
   const [itemSelecionado, setItemSelecionado] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
-  const [modoEditar, setModoEditar] = useState(false);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
+  //const [modoEditar, setModoEditar] = useState(false);
+  //const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  //const [itemToDelete, setItemToDelete] = useState(null);
+  const [fornecedores, setFornecedores] = useState([]);
+  const [fornecedorFiltro, setFornecedorFiltro] = useState("");
+  const [produtos, setProdutos] = useState([]);
+  const [produtoFiltro, setProdutoFiltro] = useState("");
 
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
-  const [cnpj, setCNPJ] = useState("");
   const [nome, setNome] = useState("");
-
-  function handleCNPJChange(event) {
-    setCNPJ(event.target.value);
-  }
+  const [nomeFornecedor, setNomeFornecedor] = useState("");
+  const [quantidade, setQuantidade] = useState("");
+  //const [cnpjFornecedor, setCnpjFornecedor] = useState("");
+  //const [codigoBarras, setCodigoBarras] = useState("");
 
   function handleNomeChange(event) {
     setNome(event.target.value);
   }
 
-  function getFornecedor() {
-    axios.get('https://localhost:44334/Fornecedor')
-    .then(response => {
-      setFornecedor(response.data.filter(fornecedor => fornecedor.tipo !== "Geral"));
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
-  const handleAdicionar = (event) => {
-    event.preventDefault();
-
-
-    const novoFornecedor = {
-      cnpj: cnpj,
-      nome: nome,
-    };
-
-    axios.post("https://localhost:44334/Fornecedor/", novoFornecedor)
-    .then(response => {
-      getFornecedor();
-      setSuccessMessage("Fornecedor inserido com Sucesso!")
-      setShowSuccessToast(true)
-    })
-    .catch(error => {
-      console.log(error);
-      setErrorMessage("Erro ao salvar fornecedor.")
-      setShowErrorToast(true)
-    });
-
-    setCNPJ("");
-    setNome("");
-    setModalAberto(false);
-  }
-
-  const handleEditar = (event) => {
-    event.preventDefault();
-
-    console.log(fornecedor)
-    const fornecedorEditado = {
-      cnpj: itemSelecionado.cnpj,
-      nome: nome,
-    };
-  
-    axios.put("https://localhost:44334/Fornecedor/", fornecedorEditado)
-    .then(response => {
-      getFornecedor();
-      setSuccessMessage("Fornecedor editado com sucesso!")
-      setShowSuccessToast(true)
-    })
-    .catch(error => {
-      console.log(error);
-      setErrorMessage(error.message || "Erro ao editar fornecedor.")
-      setShowErrorToast(true)
-    });
-  
-    setCNPJ("");
-    setNome("");
-    setItemSelecionado(null);
-    setModalAberto(false);
-  }
-  
-  function handleCloseDeleteConfirmation(confirmed) {
-    if (confirmed) {
-
-      axios.delete(`https://localhost:44334/Fornecedor/${itemToDelete.id}`)
-        .then(response => {
-          getFornecedor();
-          setSuccessMessage("Fornecedor excluído com sucesso!")
-          setShowSuccessToast(true)
-        })
-        .catch(error => {
-          console.log(error);
-          setErrorMessage(error.message || "Erro ao excluir Fornecedor.")
-          setShowErrorToast(true)
-        });
-    }
-    setShowDeleteConfirmation(false);
-    setItemToDelete(null);
-  }
-  
-  useEffect(() => {
-    axios.get('https://localhost:44334/Fornecedor')
-      .then(response => {
-        setFornecedor(response.data.filter(fornecedor => fornecedor.tipo !== "Geral"));
+  const getProdutos = useCallback(() => {
+    console.log("get Produto")
+    axios
+      .get("https://localhost:44334/Pedido/getProdutos")
+      .then((response) => {
+        setProdutos(["", ...response.data]);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  const getEstoque = useCallback(() => {
+    axios.get(`https://localhost:44334/Pedido/getEstoque?codigoFornecedor=${fornecedorFiltro}&nomeProduto=${produtoFiltro}`)
+    .then(response => {
+      setEstoque(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }, [fornecedorFiltro, produtoFiltro]);
+
+  const handleEditar = (event) => {
+    event.preventDefault();
+
+    console.log(estoque)
+    const nomeProdutoEditado = {
+      nomeProduto: nome,
+      codigoBarras: itemSelecionado.codigoBarras,
+      nomeFornecedor: itemSelecionado.nomeFornecedor,
+      cnpjFornecedor: itemSelecionado.cnpjFornecedor,
+      quantidade: itemSelecionado.quantidade
+    };
+  
+    axios.put("https://localhost:44334/NomeProdutos/", nomeProdutoEditado)
+    .then(response => {
+      getProdutos();
+      getEstoque();
+      setSuccessMessage("Nome de Produto editado com sucesso!")
+      setShowSuccessToast(true)
+    })
+    .catch(error => {
+      console.log(error);
+      setErrorMessage(error.response.data.error || "Erro ao editar Nome de Produto.")
+      setShowErrorToast(true)
+    });
+  
+    setNome("");
+    setNomeFornecedor("");
+    setQuantidade("");
+    //setCnpjFornecedor("");
+    //setCodigoBarras("");
+    setItemSelecionado(null);
+    setModalAberto(false);
+  }
+  
+  useEffect(() => {
+
+    if (fornecedorFiltro !== "") {
+      getEstoque();
+    }
+
+    if (produtoFiltro !== "") {
+      getEstoque();
+    }
+
+    if (fornecedores.length === 0) {
+      const jsonGetInicial = {
+        codigoFornecedor: "",
+        nomeProduto: ""
+      };
+
+      axios.get('https://localhost:44334/Pedido/getEstoque', jsonGetInicial)
+        .then(response => {
+          setEstoque(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+
+      axios
+        .get("https://localhost:44334/Fornecedor")
+        .then((response) => {
+          setFornecedores(["", ...response.data]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      axios
+      .get("https://localhost:44334/Pedido/getProdutos")
+      .then((response) => {
+        setProdutos(["", ...response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+  }, [fornecedorFiltro, fornecedores, produtos, produtoFiltro, getEstoque]);
+
   const userToken = localStorage.getItem("user_token");
 
-  const adicionarFornecedor = () => {
-    setCNPJ("");
-    setNome("");
-    setModalAberto(true);
-    setModoEditar(false);
-  };
-
-  const editarFornecedor = (item) => {
+  const editarNomeProduto = (item) => {
     setItemSelecionado(item);
-    setCNPJ(item.cnpj);
-    setNome(item.nome);
+    setNome(item.nomeProduto);
+    setNomeFornecedor(item.nomeFornecedor);
+    setQuantidade(item.quantidade);
+    //(item.cnpjFornecedor);
+    //setCodigoBarras(item.codigoBarras);
     setModalAberto(true);
-    setModoEditar(true);
+    //setModoEditar(true);
   };
 
-  const removerFornecedor = (item) => {
-    setItemToDelete(item);
-    setShowDeleteConfirmation(true);
-  };
+  function handleSelectFiltroFornecedor(selectedKey) {
+    console.log(selectedKey)
+    setFornecedorFiltro(selectedKey);
+    //console.log(fornecedores.find(fornecedor => fornecedor.cnpj === fornecedorFiltro))
+  }
+
+  function handleSelectFiltroProduto(selectedKey) {
+    console.log(selectedKey)
+    setProdutoFiltro(selectedKey);
+    //console.log(fornecedores.find(fornecedor => fornecedor.cnpj === fornecedorFiltro))
+  }
 
   return (
     <Container style={{ backgroundColor: "white" }}>
@@ -185,13 +201,12 @@ const Estoque = () => {
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/despesas"><FaMapMarkedAlt className="me-2" />Mapa de Custos</Link></Button>
           <Dropdown className="d-inline-block">
             <Dropdown.Toggle style={{color: 'grey'}} className="custom-button-menu" variant="light" id="dropdown-basic">
-              <FaClipboardList className="me-2" />Pedidos
+              <FaClipboardList className="me-2" />Produtos
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
               <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/pedidos">Pedidos</Link></Dropdown.Item>
               <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/fornecedores">Fornecedores</Link></Dropdown.Item>
-              <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/produtos">Produtos</Link></Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <Button variant="light" className="custom-button-menu-selected"><Link style={{color: 'grey'}} className="nav-link" to="/estoque"><FaBox className="me-2" />Estoque</Link></Button>
@@ -203,32 +218,54 @@ const Estoque = () => {
       <br/>
       <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
-          <label style={{fontWeight: "bold", color: "Green"}}>Fornecedores</label>
-          <Button variant="warning" className="custom-button-add" style={{ height: "35px", width: "100px", marginBottom: "5px", color:"grey" }} onClick={() => adicionarFornecedor()}>Adicionar</Button>
+          <label style={{fontWeight: "bold", color: "Green"}}>Estoque</label>
+        </div>
+      </Row>
+      <br/>
+      <br/>
+      <Row className="justify-content-md-center">
+        <div className="d-flex">
+          <div className="d-flex align-items-center mb-4" style={{marginRight:"35px"}}>
+            <label style={{ flex: 1, marginRight:"10px", fontWeight: "bold", color: "Grey" }}>Fornecedor</label>
+            <DropdownButton id="filtro-dropdown" title={fornecedorFiltro ? fornecedores.find(fornecedor => fornecedor.cnpj === fornecedorFiltro).nome  : "Selecione um Fornecedor"} variant="outline-secondary">
+              {fornecedores.map((fornecedor) => (
+                <Dropdown.Item className="empty-option" key={fornecedor.cnpj} eventKey={fornecedor.cnpj} onClick={handleSelectFiltroFornecedor.bind(this, fornecedor.cnpj, fornecedor.eventKey)} onSelect={handleSelectFiltroFornecedor}>
+                  {fornecedor.nome}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+          </div>
+          <div className="d-flex align-items-center mb-4">
+            <label style={{ flex: 1, marginRight:"10px", fontWeight: "bold", color: "Grey" }}>Produto</label>
+            <DropdownButton id="filtro-dropdown" title={produtoFiltro ? produtos.find(produto => produto.nome === produtoFiltro).nome  : "Selecione um Produto"} variant="outline-secondary">
+              {produtos.map((produto) => (
+                <Dropdown.Item className="empty-option" key={produto.nome} eventKey={produto.nome} onClick={handleSelectFiltroProduto.bind(this, produto.nome, produto.eventKey)} onSelect={handleSelectFiltroProduto}>
+                  {produto.nome}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+          </div>
         </div>
       </Row>
       <Row>
         <Table striped hover>
           <thead>
             <tr>
-            <th className="text-center">Produto</th>
-              <th className="text-center">Cód. Barras</th>
-              <th className="text-center">Fornecedor</th>
-              <th className="text-center">Estoque</th>
+              <th className="text-left">Nome Produto</th>
+              <th className="text-left">Nome Fornecedor</th>
+              <th className="text-center">Quantidade</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {fornecedor.map((item, index) => (
+            {estoque.map((item, index) => (
               <tr key={item.id}>
-                <td style={{ verticalAlign: "middle", textAlign: "center"}}>{item.cnpj}</td>
-                <td style={{ verticalAlign: "middle"}}>{item.nome}</td>
+                <td style={{ verticalAlign: "middle", textAlign: "left"}}>{item.nomeProduto}</td>
+                <td style={{ verticalAlign: "middle", textAlign: "left"}}>{item.nomeFornecedor}</td>
+                <td style={{ verticalAlign: "middle", textAlign: "center"}}>{item.quantidade}</td>
                 <td className="text-center" style={{ verticalAlign: "middle"}}>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarFornecedor(item)}>
+                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarNomeProduto(item)}>
                     <FaPencilAlt />
-                  </Button>
-                  <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerFornecedor(item)}>
-                    <FaTrash />
                   </Button>
                 </td>
               </tr>
@@ -239,17 +276,21 @@ const Estoque = () => {
       <br/>
       <Modal show={modalAberto} onHide={() => setModalAberto(false)}>
         <Modal.Header closeButton>
-          <Modal.Title style={{fontWeight: "bold", color: "Grey"}}>{itemSelecionado ? "Editar Fornecedor" : "Novo Fornecedor"}</Modal.Title>
+          <Modal.Title style={{fontWeight: "bold", color: "Grey"}}>{itemSelecionado ? "Editar Nome Produto" : "Novo Nome de Produto"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={modoEditar ? handleEditar : handleAdicionar}>
-            <Form.Group controlId="CNPJ" style={{marginBottom: "20px"}}>
-              <Form.Label>CNPJ</Form.Label>
-              <Form.Control type="text" placeholder="Digite o CNPJ do fornecedor" value={cnpj} onChange={handleCNPJChange}/>
+          <Form onSubmit={handleEditar}>
+            <Form.Group controlId="fornecedor" style={{marginBottom: "20px"}}>
+              <Form.Label>Fornecedor</Form.Label>
+              <Form.Control type="text" placeholder="Digite o nome do Fornecedor" value={nomeFornecedor} disabled />
             </Form.Group>
             <Form.Group controlId="nome" style={{marginBottom: "20px"}}>
               <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="Digite o nome do fornecedor" value={nome} onChange={handleNomeChange} />
+              <Form.Control type="text" placeholder="Digite o nome do produto" value={nome} onChange={handleNomeChange} />
+            </Form.Group>
+            <Form.Group controlId="quantidade" style={{marginBottom: "20px"}}>
+              <Form.Label>Quantidade</Form.Label>
+              <Form.Control type="text" placeholder="Digite a quantidade" value={quantidade} disabled />
             </Form.Group>
             <Modal.Footer>
               <Button variant="success" type="submit">
@@ -260,24 +301,6 @@ const Estoque = () => {
           </Form>
         </Modal.Body>  
       </Modal>
-      {showDeleteConfirmation && (
-        <Modal show={showDeleteConfirmation} onHide={() => handleCloseDeleteConfirmation(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirmação de exclusão</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Tem certeza que deseja excluir o fornecedor "{itemToDelete.nome}"?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={() => handleCloseDeleteConfirmation(true)}>
-              Confirmar
-            </Button>
-            <Button variant="secondary" onClick={() => handleCloseDeleteConfirmation(false)}>
-              Cancelar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
       <Toast show={showErrorToast} onClose={() => setShowErrorToast(false)} bg="danger" delay={3000} autohide>
         <Toast.Body className="text-white">{errorMessage}</Toast.Body>
       </Toast>

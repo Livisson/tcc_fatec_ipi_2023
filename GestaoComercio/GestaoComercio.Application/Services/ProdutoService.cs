@@ -59,9 +59,18 @@ namespace GestaoComercio.Application.Services
             //{
             //    throw new MyExceptionApi("Exception API", HttpStatusCode.BadRequest);
             //}
-            
 
-            var produtos = _produtoRepository.GetAll(x => x.FornecedorCpnj == codigoFornecedor);
+            var produtos = new List<Produto>();
+            if (codigoFornecedor == "" || codigoFornecedor == null || codigoFornecedor == "undefined")
+            {
+                produtos = _produtoRepository.GetAsync().Result.ToList();
+            }
+            else
+            {
+                produtos = _produtoRepository.GetAll(x => x.FornecedorCpnj == codigoFornecedor).ToList();
+            }
+
+            //var produtos = _produtoRepository.GetAll(x => x.FornecedorCpnj == codigoFornecedor);
             List<TelaPrecificacaoResponse> list = new List<TelaPrecificacaoResponse>();
 
             foreach (var item in produtos)
@@ -79,7 +88,9 @@ namespace GestaoComercio.Application.Services
                         PerMargem = item.PerMargem,
                         ValorCompra = produtoEspecificacao.OrderByDescending(x => x.ValorCompraProduto).FirstOrDefault().ValorCompraProduto,
                         ValorSugerido = item.ValorSugerido,
-                        ValorVenda = item.ValorVenda
+                        ValorVenda = item.ValorVenda,
+                        CodigoFornecedor = item.FornecedorCpnj,
+                        NomeFornecedor = item.Fornecedor.Nome
                     };
 
                     list.Add(registro);
@@ -89,9 +100,23 @@ namespace GestaoComercio.Application.Services
             return list;
         }
 
-        public List<TelaEstoqueResponse> ConsultaEstoque()
+        public List<TelaEstoqueResponse> ConsultaEstoque(string codigoFornecedor, string nomeProduto)
         {
-            var produtos = _produtoRepository.GetAsync().Result.ToList();
+            var produtos = new List<Produto>();
+            if (codigoFornecedor == "" || codigoFornecedor == null || codigoFornecedor == "undefined")
+            {
+                produtos = _produtoRepository.GetAsync().Result.ToList();
+            }
+            else
+            {
+                produtos = _produtoRepository.GetAll(x => x.FornecedorCpnj == codigoFornecedor).ToList();
+            }
+
+            if (nomeProduto != "" && nomeProduto != null && nomeProduto != "undefined")
+            {
+                produtos = produtos.Where(x => x.Nome == nomeProduto).ToList();
+            }
+
             List<TelaEstoqueResponse> list = new List<TelaEstoqueResponse>();
 
             foreach (var item in produtos)
@@ -101,7 +126,9 @@ namespace GestaoComercio.Application.Services
                 TelaEstoqueResponse registro = new TelaEstoqueResponse
                 {
                     NomeFornecedor = item.Fornecedor.Nome,
+                    CnpjFornecedor = item.Fornecedor.Cnpj,
                     NomeProduto = item.Nome,
+                    CodigoBarras = item.CodigoBarras,
                     Quantidade = item.QtdEstoqueTotal
                 };
 
@@ -137,6 +164,8 @@ namespace GestaoComercio.Application.Services
             entity.ValorVenda = produtoParaAtualizar.ValorVenda;
 
             //return _mapper.Map<ProdutoDTO>(entity);
+            entity.Fornecedor = null;
+            entity.EspecificacoesDeProduto = null;
             return _mapper.Map<ProdutoDTO>(_produtoRepository.UpdateAsync(entity).Result);
         }
 

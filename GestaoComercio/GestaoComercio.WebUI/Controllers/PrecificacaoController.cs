@@ -46,7 +46,7 @@ namespace GestaoComercio.WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPrecificacao(string request) =>
-            Ok(_produtoService.ConsultaPrecificacao(request));
+        public IActionResult GetPrecificacao(string codigoFornecedor) =>
+            Ok(_produtoService.ConsultaPrecificacao(codigoFornecedor));
     }
 }

@@ -46,11 +46,8 @@ const Pedido = () => {
   }
 
   function handleCodigoBarrasChange(event) {
-    console.log(event.target.value === "");
-    console.log("ok");
     setCodigoBarras(event.target.value);
     if (event.target.value.length > 9) {
-      console.log("Entrou");
       var nomeProd = produtos[0] ? produtos[0].find(produto => produto.codigoBarras === event.target.value) : ""
       if(nomeProd !== undefined){
         if (nomeProd.nome !== "") {
@@ -310,8 +307,8 @@ const Pedido = () => {
       <br/>
       <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
-          <div className="mb-4">
-            Fornecedor
+          <div className="d-flex align-items-center mb-4">
+            <label style={{ flex: 1, marginRight:"10px", fontWeight: "bold", color: "Grey" }}>Fornecedor</label>
             <DropdownButton id="filtro-dropdown" title={fornecedorFiltro ? fornecedores.find(fornecedor => fornecedor.cnpj === fornecedorFiltro).nome  : "Selecione um Fornecedor"} variant="outline-secondary">
               {fornecedores.map((fornecedor) => (
                 <Dropdown.Item className="empty-option" key={fornecedor.cnpj} eventKey={fornecedor.cnpj} onClick={handleSelectFiltro.bind(this, fornecedor.cnpj, fornecedor.eventKey)} onSelect={handleSelectFiltro}>

@@ -23,7 +23,7 @@ namespace GestaoComercio.Application.Services
         {
             _produtoService = produtoService;
             _especificacoesProdutoService = especificacoesProdutoService;
-            _fornecedorService = new FornecedorService(fornecedorRepository, mapper);
+            _fornecedorService = new FornecedorService(fornecedorRepository, mapper, pedidoRepository);
             _pedidoRepository = pedidoRepository;
             _mapper = mapper;
         }

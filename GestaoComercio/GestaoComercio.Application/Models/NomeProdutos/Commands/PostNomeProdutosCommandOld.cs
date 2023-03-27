@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestaoComercio.Application.Models.NomeProdutos.Commands
 {
-    public class PostNomeProdutosCommand
+    public class PostNomeProdutosCommandOld
     {
-        public string CnpjFornecedor { get; set; }
-        public string NomeFornecedor { get; set; }
+        public int Id { get; set; }
         public string NomeProduto { get; set; }
-        public string CodigoBarras { get; set; }
     }
 }

@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace GestaoComercio.WebUI.Models.NomeProdutos.Commands
 {
-    public class PostNomeProdutosModel : FromBodyAttribute
+    public class PostNomeProdutosModelOld : FromBodyAttribute
     {
-        public string CnpjFornecedor { get; set; }
-        public string NomeFornecedor { get; set; }
+        public int Id { get; set; }
         public string NomeProduto { get; set; }
-
-        public string CodigoBarras { get; set; }
     }
 }

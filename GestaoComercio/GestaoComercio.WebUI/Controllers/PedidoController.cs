@@ -62,8 +62,8 @@ namespace GestaoComercio.WebUI.Controllers
             Ok(await _pedidoService.DeletePedido(_mapper.Map<PostPedidoCommand>(request)));
 
         [HttpGet("getEstoque")]
-        public IActionResult GetEstoque() =>
-            Ok(_produtoService.ConsultaEstoque());
+        public IActionResult GetEstoque(string codigoFornecedor, string nomeProduto) =>
+            Ok(_produtoService.ConsultaEstoque(codigoFornecedor, nomeProduto));
 
         [HttpGet("getProdutos")]
         public async Task<IActionResult> GetProdutos() =>

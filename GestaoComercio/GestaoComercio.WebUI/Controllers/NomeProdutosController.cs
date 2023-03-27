@@ -31,16 +31,20 @@ namespace GestaoComercio.WebUI.Controllers
         private readonly IMapper _mapper;
 
 
-        public NomeProdutosController(ILogger<NomeProdutosController> logger, IMapper mapper, IGenericRepository<NomeProdutos> nomeProdutosRepository)
+        public NomeProdutosController(ILogger<NomeProdutosController> logger, IMapper mapper, IGenericRepository<NomeProdutos> nomeProdutosRepository, IGenericRepository<Produto> produtoRepository)
         {
             _logger = logger;
             _mapper = mapper;
-            _nomeProdutosService = new NomeProdutosService(nomeProdutosRepository, mapper);
+            _nomeProdutosService = new NomeProdutosService(nomeProdutosRepository, mapper, produtoRepository);
         }
 
         [HttpPost]
         public async Task<IActionResult> PostNomeProdutos(PostNomeProdutosModel request) =>
             Ok(await _nomeProdutosService.InserirNomeProduto(_mapper.Map<PostNomeProdutosCommand>(request)));
+
+        //[HttpPut]
+        //public async Task<IActionResult> PutNomeProduto(PostNomeProdutosModel request) =>
+        //    Ok(await _nomeProdutosService.AtualizarNomeProduto(_mapper.Map<PostNomeProdutosCommand>(request)));
 
         [HttpPut]
         public async Task<IActionResult> PutNomeProduto(PostNomeProdutosModel request) =>
