@@ -14,6 +14,8 @@ using GestaoComercio.WebUI.Models.Caixa.Command;
 using System.Collections.Generic;
 using GestaoComercio.WebUI.Models.NomeProdutos.Commands;
 using GestaoComercio.Application.Models.NomeProdutos.Commands;
+using GestaoComercio.Application.Models.Usuario.Commands;
+using GestaoComercio.WebUI.Models.Usuario.Commands;
 
 namespace GestaoComercio.Application.Mappings
 {
@@ -64,10 +66,12 @@ namespace GestaoComercio.Application.Mappings
             CreateMap<PostDespesaCommand, PostDespesaModel>().ReverseMap();
             CreateMap<PostCaixaCommand, PostCaixaModel>().ReverseMap();
             CreateMap<PostNomeProdutosCommand, PostNomeProdutosModel>().ReverseMap();
+            CreateMap<PostUsuarioCommand, PostUsuarioModel>().ReverseMap();
 
             CreateMap<PostFornecedorCommand, Fornecedor>().ReverseMap();
             CreateMap<PostDespesaCommand, Despesa>().ReverseMap();
             CreateMap<PostNomeProdutosCommand, NomeProdutos>().ReverseMap();
+            CreateMap<PostUsuarioCommand, Usuario>().ReverseMap();
 
         }
     }

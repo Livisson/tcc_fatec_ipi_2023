@@ -7,6 +7,8 @@ import useAuth from "../../hooks/useAuth";
 import './style.css';
 import { FaUser } from 'react-icons/fa';
 import LogoCompre from "../../LogoCompre.png"
+import axios from "axios";
+import { Toast } from 'react-bootstrap';
 
 const Signin = () => {
 
@@ -14,12 +16,25 @@ const Signin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    signout();
-  }, [signout]);
+    console.log("Entrou")
+    window.addEventListener('popstate', () => {
+      console.log("Logout")
+      signout()
+    });
+    return () => {
+      window.removeEventListener('popstate', () => {
+        signout()
+    })};
+  }, []);
 
   const [nome, setNome] = useState("");
   const [senha, setSenha] = useState("");
   const [error, setError] = useState("");
+
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleLogin = () => {
     if (!nome | !senha) {
@@ -53,6 +68,20 @@ const Signin = () => {
 
   };
   
+  function recuperarSenha() {
+    axios
+      .get("https://localhost:44334/api/Usuario/getRecuperarSenha")
+      .then((response) => {
+        setSuccessMessage("E-mail enviado com sucesso!")
+        setShowSuccessToast(true)
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage(error.response.data.error || "Erro ao enviar o e-mail.")
+        setShowErrorToast(true)
+      });
+  }
+
   return (
     <C.ContentCapa>
       <C.Container>
@@ -80,12 +109,19 @@ const Signin = () => {
           <Button Text="Entrar" onClick={handleLogin} />
           <C.LabelSignup>
             <C.Strong>
-              <Link to="/esqueceuSenha">Esqueceu a senha? Clique aqui!</Link>
+              <Link onClick={recuperarSenha}>Esqueceu a senha? Clique aqui!</Link>
             </C.Strong>
           </C.LabelSignup>
+          <Toast show={showErrorToast} onClose={() => setShowErrorToast(false)} bg="danger" delay={3000} autohide>
+            <Toast.Body className="text-white">{errorMessage}</Toast.Body>
+          </Toast>
+          <Toast show={showSuccessToast} onClose={() => setShowSuccessToast(false)} bg="success" delay={3000} autohide>
+            <Toast.Body className="text-white">{successMessage}</Toast.Body>
+          </Toast> 
         </C.Content>
-      </C.Container>
+      </C.Container> 
     </C.ContentCapa>
+    
   );
 };
 

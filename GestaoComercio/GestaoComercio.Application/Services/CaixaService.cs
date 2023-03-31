@@ -112,7 +112,7 @@ namespace GestaoComercio.Application.Services
             return _mapper.Map<IEnumerable<ProdutosVendaDTO>>(await _produtosVendaRepository.GetAsync());
         }
 
-        public List<TelaConsolidadoResponse> ConsultarConsolidadoMes(int mesAno)
+        public List<TelaConsolidadoResponse> ConsultarConsolidadoMes(string mesAno)
         {
             //JArray json = new JArray();
             var json = new List<TelaConsolidadoResponse>();
@@ -132,16 +132,32 @@ namespace GestaoComercio.Application.Services
 
                         string appObj = "{'Data':'"+ new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy") + "', 'Receitas':'" + vendas + "', 'Despesa':'" + despesas + "', 'Resumo':'" + resumo + "'}";
 
-                        TelaConsolidadoResponse registro = new TelaConsolidadoResponse
+                        TelaConsolidadoResponse registroReceita = new TelaConsolidadoResponse
                         {
-                            Data = new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy"),
-                            Receitas = vendas,
-                            Despesas = despesas,
-                            Resumo = resumo
+                            Title = "R R$" + vendas.ToString("N2"),
+                            Start = new DateTime(year, month, i, 0, 0, 0),
+                            End = new DateTime(year, month, i, 0, 0, 0),
+                            Tipo = vendas >= 0 ? "positivo" : "negativo"
                         };
-                        //json.Add(JObject.Parse(appObj));
-                        //var teste = JsonSerializer.Serialize(appObj);
-                        json.Add(registro);
+                        json.Add(registroReceita);
+
+                        TelaConsolidadoResponse registroDespesa = new TelaConsolidadoResponse
+                        {
+                            Title = "D R$" + despesas.ToString("N2"),
+                            Start = new DateTime(year, month, i, 0, 0, 0),
+                            End = new DateTime(year, month, i, 0, 0, 0),
+                            Tipo = "negativo"
+                        };
+                        json.Add(registroDespesa);
+
+                        TelaConsolidadoResponse registroSaldo = new TelaConsolidadoResponse
+                        {
+                            Title = "S R$" + resumo.ToString("N2"),
+                            Start = new DateTime(year, month, i, 0, 0, 0),
+                            End = new DateTime(year, month, i, 0, 0, 0),
+                            Tipo = resumo >= 0 ? "positivo" : "negativo"
+                        };;
+                        json.Add(registroSaldo);
                     }
                     else
                     {
@@ -151,16 +167,32 @@ namespace GestaoComercio.Application.Services
 
                         string appObj = "{'Data':'" + new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy") + "', 'Receitas':'" + vendas + "', 'Despesa':'" + despesas + "', 'Resumo':'" + resumo + "'}";
 
-                        TelaConsolidadoResponse registro = new TelaConsolidadoResponse
+                        TelaConsolidadoResponse registroReceita = new TelaConsolidadoResponse
                         {
-                            Data = new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy"),
-                            Receitas = vendas,
-                            Despesas = despesas,
-                            Resumo = resumo
+                            Title = "R R$" + vendas.ToString("N2"),
+                            Start = new DateTime(year, month, i, 0, 0, 0),
+                            End = new DateTime(year, month, i, 0, 0, 0),
+                            Tipo = vendas >= 0 ? "positivo" : "negativo"
                         };
-                        //json.Add(JObject.Parse(appObj));
-                        //var teste = JsonSerializer.Serialize(appObj);
-                        json.Add(registro);
+                        json.Add(registroReceita);
+
+                        TelaConsolidadoResponse registroDespesa = new TelaConsolidadoResponse
+                        {
+                            Title = "D R$" + despesas.ToString("N2"),
+                            Start = new DateTime(year, month, i, 0, 0, 0),
+                            End = new DateTime(year, month, i, 0, 0, 0),
+                            Tipo = "negativo"
+                        };
+                        json.Add(registroDespesa);
+
+                        TelaConsolidadoResponse registroSaldo = new TelaConsolidadoResponse
+                        {
+                            Title = "S R$" + resumo.ToString("N2"),
+                            Start = new DateTime(year, month, i, 0, 0, 0),
+                            End = new DateTime(year, month, i, 0, 0, 0),
+                            Tipo = resumo >= 0 ? "positivo" : "negativo"
+                        }; ;
+                        json.Add(registroSaldo);
                     }
                 }
                 else
@@ -171,16 +203,32 @@ namespace GestaoComercio.Application.Services
 
                     string appObj = "{'Data':'" + new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy") + "', 'Receitas':'" + vendas + "', 'Despesa':'" + despesas + "', 'Resumo':'" + resumo + "'}";
 
-                    TelaConsolidadoResponse registro = new TelaConsolidadoResponse
+                    TelaConsolidadoResponse registroReceita = new TelaConsolidadoResponse
                     {
-                        Data = new DateTime(year, month, i, 0, 0, 0).ToString("dd/MM/yyyy"),
-                        Receitas = vendas,
-                        Despesas = despesas,
-                        Resumo = resumo
+                        Title = "R R$" + vendas.ToString("N2"),
+                        Start = new DateTime(year, month, i, 0, 0, 0),
+                        End = new DateTime(year, month, i, 0, 0, 0),
+                        Tipo = vendas >= 0 ? "positivo" : "negativo"
                     };
-                    //json.Add(JObject.Parse(appObj));
-                    //var teste = JsonSerializer.Serialize(appObj);
-                    json.Add(registro);
+                    json.Add(registroReceita);
+
+                    TelaConsolidadoResponse registroDespesa = new TelaConsolidadoResponse
+                    {
+                        Title = "D R$" + despesas.ToString("N2"),
+                        Start = new DateTime(year, month, i, 0, 0, 0),
+                        End = new DateTime(year, month, i, 0, 0, 0),
+                        Tipo = "negativo"
+                    };
+                    json.Add(registroDespesa);
+
+                    TelaConsolidadoResponse registroSaldo = new TelaConsolidadoResponse
+                    {
+                        Title = "S R$" + resumo.ToString("N2"),
+                        Start = new DateTime(year, month, i, 0, 0, 0),
+                        End = new DateTime(year, month, i, 0, 0, 0),
+                        Tipo = resumo >= 0 ? "positivo" : "negativo"
+                    }; ;
+                    json.Add(registroSaldo);
                 }
             }
             

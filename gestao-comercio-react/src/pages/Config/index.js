@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { FaUser, FaChartBar, FaMapMarkedAlt, FaClipboardList, FaBox, FaMoneyBillWave, FaCashRegister, FaCog, FaSignOutAlt, FaTrash, FaPencilAlt } from "react-icons/fa";
+import { FaUser, FaChartBar, FaMapMarkedAlt, FaClipboardList, FaBox, FaMoneyBillWave, FaCashRegister, FaCog, FaSignOutAlt, FaPencilAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoCompre from "../../LogoCompre.png";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,181 +12,96 @@ import axios from "axios";
 
 const Config = () => {
 
-  const [despesas, setDespesas] = useState([]);
-  const [despesasGerais, setDespesasGerais] = useState([]);
+  const [usuario, setUsuario] = useState([]);
   const [itemSelecionado, setItemSelecionado] = useState(null);
   const [modalAberto, setModalAberto] = useState(false);
-  const [modoEditar, setModoEditar] = useState(false);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
 
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [formEnviado, setFormEnviado] = useState(false);
 
-  const [descricao, setDescricao] = useState("");
-  const [funcao, setFuncao] = useState("");
-  const [valor, setValor] = useState("");
-  const [diaVencimento, setDiaVencimento] = useState("");
-  const [tipoDespesa, setTipoDespesa] = useState("Funcionário");
+  const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("");
 
-  function handleDescricaoChange(event) {
-    setDescricao(event.target.value);
+
+  function handleNomeChange(event) {
+    setNome(event.target.value);
   }
 
-  function handleFuncaoChange(event) {
-    setFuncao(event.target.value);
+  function handleSenhaChange(event) {
+    console.log(event.target.value.length)
+    setSenha(event.target.value);
   }
 
-  function handleValorChange(event) {
-    setValor(event.target.value);
+  function handleEmailChange(event) {
+    setEmail(event.target.value);
   }
 
-  function handleDiaVencimentoChange(event) {
-    const value = event.target.value.trim();
-    console.log(value.toString())
-    if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 31 && !value.toString().includes(","))) {
-      setDiaVencimento(value === '' ? null : parseInt(value));
-    }
-  }
-
-  function getDespesas() {
-    axios.get('https://localhost:44334/Despesa')
-    .then(response => {
-      setDespesas(response.data.filter(despesa => despesa.tipo !== "Geral"));
-      setDespesasGerais(response.data.filter(despesa => despesa.tipo === "Geral"));
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
-  const handleAdicionar = (event) => {
-    event.preventDefault();
-
-
-    const novaDespesa = {
-      tipo: tipoDespesa,
-      descricao: descricao,
-      funcao: funcao,
-      valor: parseFloat(valor),
-      diaVencimento: parseInt(diaVencimento),
-    };
-
-    axios.post("https://localhost:44334/Despesa/", novaDespesa)
-    .then(response => {
-      getDespesas();
-      setSuccessMessage("Despesa Inserida com Sucesso!")
-      setShowSuccessToast(true)
-    })
-    .catch(error => {
-      console.log(error);
-      setErrorMessage(error.message || "Erro ao salvar despesa.")
-      setShowErrorToast(true)
-    });
-
-    setDescricao("");
-    setFuncao("");
-    setValor("");
-    setDiaVencimento("");
-    setTipoDespesa("");
-    setModalAberto(false);
-  }
+  const getUsuario = () => {
+    axios
+      .get("https://localhost:44334/api/Usuario")
+      .then((response) => {
+        setUsuario(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleEditar = (event) => {
     event.preventDefault();
+    setFormEnviado(true);
 
-    console.log(tipoDespesa)
-    const despesaEditada = {
+    const usuarioEditado = {
       id: itemSelecionado.id,
-      tipo: tipoDespesa,
-      descricao: descricao,
-      funcao: funcao,
-      valor: parseFloat(valor),
-      diaVencimento: parseInt(diaVencimento),
+      nome: nome,
+      senha: senha,
+      email: email
     };
   
-    axios.put("https://localhost:44334/Despesa/", despesaEditada)
+    axios.put("https://localhost:44334/api/Usuario/", usuarioEditado)
     .then(response => {
-      getDespesas();
-      setSuccessMessage("Despesa editada com sucesso!")
+      getUsuario();
+      setSuccessMessage("Usuário editado com sucesso!")
       setShowSuccessToast(true)
     })
     .catch(error => {
       console.log(error);
-      setErrorMessage(error.message || "Erro ao editar despesa.")
+      setErrorMessage(error.response.data.error || "Erro ao editar Usuário.")
       setShowErrorToast(true)
     });
   
-    setDescricao("");
-    setFuncao("");
-    setValor("");
-    setDiaVencimento("");
-    setTipoDespesa("");
+    setNome("");
+    setSenha("");
+    setEmail("");
     setItemSelecionado(null);
     setModalAberto(false);
-  }
-  
-  function handleCloseDeleteConfirmation(confirmed) {
-    if (confirmed) {
-
-      axios.delete(`https://localhost:44334/Despesa/${itemToDelete.id}`)
-        .then(response => {
-          getDespesas();
-          setSuccessMessage("Despesa excluída com sucesso!")
-          setShowSuccessToast(true)
-        })
-        .catch(error => {
-          console.log(error);
-          setErrorMessage(error.message || "Erro ao excluir despesa.")
-          setShowErrorToast(true)
-        });
-    }
-    setShowDeleteConfirmation(false);
-    setItemToDelete(null);
+    setFormEnviado(false);
   }
   
   useEffect(() => {
-    axios.get('https://localhost:44334/Despesa')
-      .then(response => {
-        setDespesas(response.data.filter(despesa => despesa.tipo !== "Geral"));
-        setDespesasGerais(response.data.filter(despesa => despesa.tipo === "Geral"));
+    axios
+      .get("https://localhost:44334/api/Usuario")
+      .then((response) => {
+        setUsuario(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
-      //getDespesas();
   }, []);
 
   const userToken = localStorage.getItem("user_token");
 
-  const adicionarDespesa = () => {
-    setDescricao("");
-    setFuncao("");
-    setValor("");
-    setDiaVencimento("");
-    setTipoDespesa("Funcionário");
-    setItemSelecionado(null);
-    setModalAberto(true);
-    setModoEditar(false);
-  };
-
-  const editarDespesa = (item) => {
-    console.log(item.tipo)
+  const editarUsuario = (item) => {
     setItemSelecionado(item);
-    setDescricao(item.descricao);
-    setFuncao(item.funcao);
-    setValor(item.valor);
-    setDiaVencimento(item.diaVencimento);
-    setTipoDespesa(item.tipo);
+    setNome(item.nome);
+    setSenha("");
+    setEmail(item.email);
     setModalAberto(true);
-    setModoEditar(true);
-  };
-
-  const removerDespesa = (item) => {
-    setItemToDelete(item);
-    setShowDeleteConfirmation(true);
+    //setModoEditar(true);
   };
 
   return (
@@ -222,16 +137,15 @@ const Config = () => {
       <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/consolidado"><FaChartBar className="me-2" />Consolidado</Link></Button>
-          <Button variant="light" className="custom-button-menu-selected"><Link style={{color: 'grey'}} className="nav-link" to="/despesas"><FaMapMarkedAlt className="me-2" />Mapa de Custos</Link></Button>
+          <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/despesas"><FaMapMarkedAlt className="me-2" />Mapa de Custos</Link></Button>
           <Dropdown className="d-inline-block">
             <Dropdown.Toggle style={{color: 'grey'}} className="custom-button-menu" variant="light" id="dropdown-basic">
-              <FaClipboardList className="me-2" />Pedidos
+              <FaClipboardList className="me-2" />Produtos
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
               <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/pedidos">Pedidos</Link></Dropdown.Item>
               <Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/fornecedores">Fornecedores</Link></Dropdown.Item>
-              {/*<Dropdown.Item style={{color: 'grey'}}><Link style={{color: 'grey'}} className="nav-link" to="/produtos">Produtos</Link></Dropdown.Item>*/}
             </Dropdown.Menu>
           </Dropdown>
           <Button variant="light" className="custom-button-menu"><Link style={{color: 'grey'}} className="nav-link" to="/estoque"><FaBox className="me-2" />Estoque</Link></Button>
@@ -243,101 +157,56 @@ const Config = () => {
       <br/>
       <Row className="justify-content-md-center">
         <div className="d-flex justify-content-between">
-          <label style={{fontWeight: "bold", color: "Green"}}>Despesas Fixas</label>
-          <Button variant="warning" className="custom-button-add" style={{ height: "35px", width: "100px", marginBottom: "5px", color:"grey" }} onClick={() => adicionarDespesa()}>Adicionar</Button>
+          <label style={{fontWeight: "bold", color: "Green"}}>Alterar Senha</label>
         </div>
       </Row>
-      <Table striped hover>
-        <thead>
-          <tr>
-            <th className="text-center">N°</th>
-            <th>Funcionários</th>
-            <th>Função</th>
-            <th className="text-center">Valor</th>
-            <th className="text-center">Dia Pagamento</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {despesas.map((item, index) => (
-            <tr key={item.id}>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>{index}</td>
-              <td style={{ verticalAlign: "middle"}}>{item.descricao}</td>
-              <td style={{ verticalAlign: "middle"}}>{item.funcao}</td>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>R$ {item.valor.toFixed(2)}</td>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>{item.diaVencimento}</td>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>
-                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
-                  <FaPencilAlt />
-                </Button>
-                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
-                  <FaTrash />
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
       <br/>
-      <Table striped hover>
-        <thead>
-          <tr>
-            <th className="text-center">N°</th>
-            <th>Geral</th>
-            <th></th>
-            <th className="text-center">Valor</th>
-            <th className="text-center">Dia Pagamento</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {despesasGerais.map((item, index) => (
-            <tr key={item.id}>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>{index}</td>
-              <td style={{ verticalAlign: "middle"}}>{item.descricao}</td>
-              <td></td>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>R$ {item.valor.toFixed(2)}</td>
-              <td className="text-center" style={{ verticalAlign: "middle"}}>{item.diaVencimento}</td>
+      <br/>
+      <Row>
+        <Table striped hover>
+          <thead>
+            <tr>
+              <th className="text-left">Usuário</th>
+              <th className="text-center">Senha</th>
+              <th className="text-center">E-mail Casatrado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr key={usuario.id}>
+              <td style={{ verticalAlign: "middle", textAlign: "left"}}>{usuario.nome}</td>
+              <td style={{ verticalAlign: "middle", textAlign: "center"}}>{usuario.senha}</td>
+              <td style={{ verticalAlign: "middle", textAlign: "center"}}>{usuario.email}</td>
               <td className="text-center" style={{ verticalAlign: "middle"}}>
-                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarDespesa(item)}>
+                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => editarUsuario(usuario)}>
                   <FaPencilAlt />
-                </Button>
-                <Button variant="outline-secondary" style={{ border: "none"}} onClick={() => removerDespesa(item)}>
-                  <FaTrash />
                 </Button>
               </td>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      </Row>
+      <br/>
       <Modal show={modalAberto} onHide={() => setModalAberto(false)}>
         <Modal.Header closeButton>
-          <Modal.Title style={{fontWeight: "bold", color: "Grey"}}>{itemSelecionado ? "Editar Despesa" : "Nova Despesa"}</Modal.Title>
+          <Modal.Title style={{fontWeight: "bold", color: "Grey"}}>{itemSelecionado ? "Editar Usuario" : "Novo Usuário"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={modoEditar ? handleEditar : handleAdicionar}>
-            <Form.Group controlId="tipoDespesa" style={{marginBottom: "20px"}}>
-              <Form.Label>Tipo de Despesa</Form.Label>
-              <Form.Select value={tipoDespesa} onChange={(e) => setTipoDespesa(e.target.value)}>
-                <option value="Funcionário">Funcionário</option>
-                <option value="Geral">Geral</option>
-              </Form.Select>
+          <Form onSubmit={handleEditar}>
+            <Form.Group controlId="nome" style={{marginBottom: "20px"}}>
+              <Form.Label>Nome do Usuário</Form.Label>
+              <Form.Control type="text" placeholder="Digite o nome do Usuário" value={nome} onChange={handleNomeChange} required
+                isInvalid={formEnviado && nome.length < 5}/>
             </Form.Group>
-            <Form.Group controlId="descricao" style={{marginBottom: "20px"}}>
-              <Form.Label>Descrição</Form.Label>
-              <Form.Control type="text" placeholder="Digite o nome da despesa" value={descricao} onChange={handleDescricaoChange}/>
+            <Form.Group controlId="senha" style={{marginBottom: "20px"}}>
+              <Form.Label>Senha</Form.Label>
+              <Form.Control type="password" placeholder="Digite a nova senha" value={senha} onChange={handleSenhaChange} required minLength={5}
+                isInvalid={formEnviado && senha.length < 5}/>
             </Form.Group>
-            <Form.Group controlId="funcao" style={{marginBottom: "20px"}}>
-              <Form.Label>Função</Form.Label>
-              <Form.Control type="text" placeholder="Digite a função do despesa" value={funcao} onChange={handleFuncaoChange} disabled={tipoDespesa === "Geral"}/>
-            </Form.Group>
-            <Form.Group controlId="valor" style={{marginBottom: "20px"}}>
-              <Form.Label>Valor</Form.Label>
-              <Form.Control type="number" step="0.01" placeholder="Digite o valor da despesa" value={valor} onChange={handleValorChange}/>
-            </Form.Group>
-            <Form.Group controlId="data" style={{marginBottom: "20px"}}>
-              <Form.Label>Dia Pagamento</Form.Label>
-              <Form.Control type="number" pattern="[0-9]*" min="1" max="31" placeholder="Digite o dia de vencimento" value={diaVencimento} onChange={handleDiaVencimentoChange}/>
+            <Form.Group controlId="email" style={{marginBottom: "20px"}}>
+              <Form.Label>Quantidade</Form.Label>
+              <Form.Control type="email" placeholder="Digite o e-mail" value={email} onChange={handleEmailChange} required
+                isInvalid={formEnviado && email.length < 8}/>
             </Form.Group>
             <Modal.Footer>
               <Button variant="success" type="submit">
@@ -348,24 +217,6 @@ const Config = () => {
           </Form>
         </Modal.Body>  
       </Modal>
-      {showDeleteConfirmation && (
-        <Modal show={showDeleteConfirmation} onHide={() => handleCloseDeleteConfirmation(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirmação de exclusão</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Tem certeza que deseja excluir a despesa "{itemToDelete.descricao}"?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={() => handleCloseDeleteConfirmation(true)}>
-              Confirmar
-            </Button>
-            <Button variant="secondary" onClick={() => handleCloseDeleteConfirmation(false)}>
-              Cancelar
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
       <Toast show={showErrorToast} onClose={() => setShowErrorToast(false)} bg="danger" delay={3000} autohide>
         <Toast.Body className="text-white">{errorMessage}</Toast.Body>
       </Toast>

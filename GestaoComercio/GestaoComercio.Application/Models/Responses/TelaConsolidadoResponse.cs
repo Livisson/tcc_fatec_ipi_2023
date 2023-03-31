@@ -8,9 +8,9 @@ namespace GestaoComercio.Application.Models.Responses
 {
     public class TelaConsolidadoResponse
     {
-        public string Data { get; set; }
-        public double Receitas { get; set; }
-        public double Despesas { get; set; }
-        public double Resumo { get; set; }
+        public string Title { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public string Tipo { get; set; }
     }
 }

@@ -27,6 +27,7 @@ const Estoque = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [formEnviado, setFormEnviado] = useState(false);
 
   const [nome, setNome] = useState("");
   const [nomeFornecedor, setNomeFornecedor] = useState("");
@@ -62,6 +63,7 @@ const Estoque = () => {
 
   const handleEditar = (event) => {
     event.preventDefault();
+    setFormEnviado(true);
 
     console.log(estoque)
     const nomeProdutoEditado = {
@@ -92,6 +94,7 @@ const Estoque = () => {
     //setCodigoBarras("");
     setItemSelecionado(null);
     setModalAberto(false);
+    setFormEnviado(false);
   }
   
   useEffect(() => {
@@ -286,7 +289,8 @@ const Estoque = () => {
             </Form.Group>
             <Form.Group controlId="nome" style={{marginBottom: "20px"}}>
               <Form.Label>Nome</Form.Label>
-              <Form.Control type="text" placeholder="Digite o nome do produto" value={nome} onChange={handleNomeChange} />
+              <Form.Control type="text" placeholder="Digite o nome do produto" value={nome} onChange={handleNomeChange} required
+                isInvalid={formEnviado && nome.length < 5}/>
             </Form.Group>
             <Form.Group controlId="quantidade" style={{marginBottom: "20px"}}>
               <Form.Label>Quantidade</Form.Label>

@@ -322,6 +322,8 @@ const Precificar = () => {
                 placeholder="Digite o valor da compra"
                 value={valorCompra}
                 required
+                disabled
+                readOnly
                 isInvalid={formEnviado && valorCompra.length === 0}
               />
             </Form.Group>

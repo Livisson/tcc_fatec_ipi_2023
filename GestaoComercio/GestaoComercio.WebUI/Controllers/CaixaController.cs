@@ -6,6 +6,7 @@ using GestaoComercio.Domain.Interfaces;
 using GestaoComercio.WebUI.Models.Caixa.Command;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 //using System.Web.Http;
@@ -49,14 +50,12 @@ namespace GestaoComercio.WebUI.Controllers
             Ok(_produtoService.GetProdutoByCodigoBarras(request));
 
         [HttpGet("getConsolidado")]
-        public IActionResult GetConsolidado(int request) 
+        public IActionResult GetConsolidado(string data) 
         {
-                request = 202303;
-                var teste = _caixaService.ConsultarConsolidadoMes(request);
+                //request = 202303;
+                var teste = _caixaService.ConsultarConsolidadoMes(data);
                 return Ok(teste);
         }
-            
-
 
     }
 }

@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Button, Col, Row, Container } from 'react-bootstrap';
 import './styleConsolidado.css';
-//import axios from "axios";
+import axios from "axios";
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'moment/locale/pt-br';
@@ -16,11 +16,29 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const Consolidado = () => {
 
-  useEffect(() => {
-    console.log("teste")
-  }, []);
+  const [events, setEvents] = useState([]);
+  const [currentDate, setCurrentDate] = useState(moment());
 
-  const events = [
+  const handleNavigate = (newDate, view) => {
+    setCurrentDate(moment(newDate));
+  };
+
+  useEffect(() => {
+    var mes = currentDate.month() + 1;
+    var ano = currentDate.year();
+    var anoMes = ano + mes.toString().padStart(2, "0");
+    console.log(anoMes)
+    axios
+      .get(`https://localhost:44334/Caixa/getConsolidado?data=${anoMes}`)
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [currentDate]);
+
+  /*const events = [
     {
       title: 'Receita: R$5000,00',
       start: new Date(2023, 2, 27, 9, 0),
@@ -57,12 +75,12 @@ const Consolidado = () => {
       end: new Date(2023, 2, 28, 12, 0),
       tipo: 'negativo'
     },
-  ];
+  ];*/
 
   const messages = {
     allDay: 'Dia inteiro',
-    previous: 'Anterior',
-    next: 'Próximo',
+    previous: 'Mês Anterior',
+    next: 'Próximo Mês',
     today: 'Hoje',
     month: 'Mês',
     week: 'Semana',
@@ -75,18 +93,23 @@ const Consolidado = () => {
 
   function eventStyleGetter(event, start, end, isSelected) {
     let backgroundColor = '';
+    let color = '';
     if (event.tipo === 'positivo') {
-      backgroundColor = 'green';
+      backgroundColor = '#DAF5F0';
+      color = '#007A5D';
     } else if (event.tipo === 'negativo') {
-      backgroundColor = 'red';
-    }
+      backgroundColor = '#FBE1EA';
+      color = '#FF2F15';
+    } 
     const style = {
       backgroundColor,
       borderRadius: '5px',
       opacity: 0.8,
-      color: 'white',
+      color,
+      fontWeight: 'bold',
       border: '0px',
       display: 'block',
+      wordSpacing: '20px',
     };
     return {
       style,
@@ -168,6 +191,7 @@ const Consolidado = () => {
         style={{ height: 700 }}
         showAllEvents={true}
         dayLayoutAlgorithm={'no-overlap'}
+        onNavigate={handleNavigate}
       />
     </Container>
   );
